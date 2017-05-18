@@ -1,0 +1,19 @@
+[user]
+	name = yz
+	email = yuzhe@neoteched.com
+[core]
+	compression = -1
+[push]
+	default = simple
+[alias]
+    co = checkout
+    st = status
+    br = branch
+    sth = stash
+    l = log --pretty --decorate --graph --oneline
+    pr = pull --rebase
+    pl = pull
+[diff]
+	tool = meld
+[merge]
+	tool = meld
