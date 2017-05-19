@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump)
+plugins=(git autojump cp web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -87,6 +87,7 @@ source $ZSH/oh-my-zsh.sh
 # Alias Start
 alias sshdev='ssh -l www-data dev.test.neoteched.com'
 alias sshtest='ssh -l root 192.168.2.26'
+alias cls='clear'
 # Alias End
 
 [[ -s /home/yz/.autojump/etc/profile.d/autojump.sh ]] && source /home/yz/.autojump/etc/profile.d/autojump.sh
