@@ -144,6 +144,8 @@ if dein#load_state('~/.vim/bundle')
 
     call dein#add('jason0x43/vim-js-indent')
 
+    call dein#add('flowtype/vim-flow', {'on_ft': 'javascript', "build": "npm install -g flow-bin"})
+
     call dein#add('Shougo/echodoc.vim')
 
     call dein#add('HerringtonDarkholme/yats.vim')
