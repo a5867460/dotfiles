@@ -138,9 +138,9 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('itchyny/vim-cursorword')
 
     "" { Typescript Plugin
-    "call dein#add('leafgarland/typescript-vim')
+    "call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
 
-    call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
+    "call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
 
     call dein#add('jason0x43/vim-js-indent')
 
@@ -673,6 +673,7 @@ augroup END
 "{ reload conf
 noremap <F6> :call ReloadToDev()<cr>
 noremap <F8> :call UpdateComposer()<cr>
+noremap <F3> :Autoformat<cr>
 "}
 
 " { Typescript config
@@ -689,7 +690,7 @@ let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
-let g:p_auto_indent_filetype = ['vim', 'typescript', 'javascript']
+let g:p_auto_indent_filetype = ['vim', 'typescript', 'jsx']
 autocmd BufWrite *
             \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
             \ :Autoformat |
@@ -702,7 +703,10 @@ let g:OmniSharp_server_type = 'roslyn'
 " {
 
 func ReloadToDev()
-    :Autoformat
+    autocmd BufWrite *
+                \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
+                \ :Autoformat |
+                \ endif
     :write
     if  ! filereadable("./reload.sh")
         echom 'No reload file'
