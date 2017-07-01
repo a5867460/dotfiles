@@ -56,7 +56,7 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('jiangmiao/auto-pairs')
     call dein#add('ctrlpvim/ctrlp.vim')
     call dein#add('tacahiroy/ctrlp-funky')
-    call dein#add('matchit.zip')
+    call dein#add('vim-scripts/matchit.zip')
     call dein#add('easymotion/vim-easymotion')
     call dein#add('mbbill/undotree')
     call dein#add('Yggdroot/indentLine.git')
@@ -137,16 +137,16 @@ if dein#load_state('~/.vim/bundle')
 
     call dein#add('itchyny/vim-cursorword')
 
-    "" { Typescript Plugin
+    " { Typescript Plugin
     "call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
 
-    "call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
+    call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
 
     call dein#add('jason0x43/vim-js-indent')
 
     call dein#add('flowtype/vim-flow', {'on_ft': 'javascript', "build": "npm install -g flow-bin"})
 
-    call dein#add('Shougo/echodoc.vim')
+    "call dein#add('Shougo/echodoc.vim')
 
     call dein#add('HerringtonDarkholme/yats.vim')
 
@@ -461,6 +461,8 @@ endif
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php =
             \ ['->', '::', '(', 'use ', 'namespace ', '\']
+let g:ycm_semantic_triggers.typescript =
+            \ ['.']
 
 " Disable the neosnippet preview candidate window
 " When enabled, there can be too much visual noise
