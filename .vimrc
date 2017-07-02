@@ -94,7 +94,7 @@ if dein#load_state('~/.vim/bundle')
 
     call dein#add('mhinz/vim-signify')
 
-    call dein#add('jelera/vim-javascript-syntax')
+    "call dein#add('jelera/vim-javascript-syntax')
 
     "call dein#add('shawncplus/phpcomplete.vim.git')
     call dein#add('lvht/phpcd.vim', {'build': 'composer install'})
@@ -120,6 +120,8 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('SirVer/ultisnips')
 
     call dein#add('ternjs/tern_for_vim', {"on_ft":"javascript","build": "npm install"})
+
+    "call dein#add('w0rp/ale')
 
     call dein#add('fatih/vim-go', {"build": "GoInstallBinaries"})
 
@@ -630,6 +632,25 @@ endfunc
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
+let g:flow#autoclose = 1
+let g:javascript_plugin_flow = 1
+" Asynchronous Lint Engine (ALE)
+" Limit linters used for JavaScript.
+let g:ale_emit_conflict_warnings = 0
+let g:ale_linters = {
+            \  'javascript': ['flow'],
+            \}
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+let g:ale_sign_error = 'X' " could use emoji
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+" %linter% is the name of the linter that provided the message
+" %s is the error or warning message
+let g:ale_echo_msg_format = '%linter% says %s'
+" Map keys to navigate between lines with errors and warnings.
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
 " }
 " { padawan key map
 autocmd Filetype c,cpp,php inoremap <C-o> <C-x><C-o>
