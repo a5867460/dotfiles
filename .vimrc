@@ -56,7 +56,7 @@ if dein#load_state('~/.vim/bundle')
     call dein#add('jiangmiao/auto-pairs')
     call dein#add('ctrlpvim/ctrlp.vim')
     call dein#add('tacahiroy/ctrlp-funky')
-    call dein#add('vim-scripts/matchit.zip')
+    call dein#add('matchit.zip')
     call dein#add('easymotion/vim-easymotion')
     call dein#add('mbbill/undotree')
     call dein#add('Yggdroot/indentLine.git')
@@ -121,7 +121,7 @@ if dein#load_state('~/.vim/bundle')
 
     call dein#add('ternjs/tern_for_vim', {"on_ft":"javascript","build": "npm install"})
 
-    "call dein#add('w0rp/ale')
+    call dein#add('w0rp/ale', {"on_ft":[ "javascript", "jsx", "go", "php"]})
 
     call dein#add('fatih/vim-go', {"build": "GoInstallBinaries"})
 
@@ -139,7 +139,7 @@ if dein#load_state('~/.vim/bundle')
 
     call dein#add('itchyny/vim-cursorword')
 
-    " { Typescript Plugin
+    "" { Typescript Plugin
     "call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
 
     call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
@@ -463,8 +463,6 @@ endif
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php =
             \ ['->', '::', '(', 'use ', 'namespace ', '\']
-let g:ycm_semantic_triggers.typescript =
-            \ ['.']
 
 " Disable the neosnippet preview candidate window
 " When enabled, there can be too much visual noise
@@ -571,8 +569,9 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_gocode_unimported_packages = 1
 let g:go_fmt_command = "goimports"
-let g:syntastic_go_checkers = ['errcheck', 'govet', 'golint']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+"let g:syntastic_go_checkers = ['errcheck', 'govet', 'golint']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:syntastic_enable_go_checker = 0
 let g:go_list_type = "quickfix"
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
 au FileType go nmap <leader>rs <Plug>(go-run-split)
@@ -632,25 +631,6 @@ endfunc
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
-let g:flow#autoclose = 1
-let g:javascript_plugin_flow = 1
-" Asynchronous Lint Engine (ALE)
-" Limit linters used for JavaScript.
-let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {
-            \  'javascript': ['flow'],
-            \}
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
-let g:ale_sign_error = 'X' " could use emoji
-let g:ale_sign_warning = '?' " could use emoji
-let g:ale_statusline_format = ['X %d', '? %d', '']
-" %linter% is the name of the linter that provided the message
-" %s is the error or warning message
-let g:ale_echo_msg_format = '%linter% says %s'
-" Map keys to navigate between lines with errors and warnings.
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
 " }
 " { padawan key map
 autocmd Filetype c,cpp,php inoremap <C-o> <C-x><C-o>
@@ -671,14 +651,39 @@ autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 " }
 " { php syntastic config
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_checkers = ['phpstan','php', 'phpcs', 'phpmd']
 let g:syntastic_php_phpcs_args = "--standard=Custom"
+let g:syntastic_php_phpstan_args = "-l 5"
 let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml"
 
 
 let g:syntastic_always_populate_loc_list = 1
+autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
+autocmd FileType javascript.jsx nnoremap <C-]> mZ:FlowJumpToDef<CR>
+autocmd FileType javascript.jsx nnoremap <C-t> 'Z
 nnoremap <script> <silent> <F7> :call ToggleLocationList()<CR>
+let g:flow#autoclose = 1
 "let g:syntastic_auto_loc_list = 1
+" Asynchronous Lint Engine (ALE)
+" Limit linters used for JavaScript.
+let g:ale_emit_conflict_warnings = 0
+let g:ale_linters = {
+            \  'javascript': ['flow'],
+            \  'jsx': ['flow'],
+            \  'go': ['golint', 'gosimple', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
+            \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
+            \}
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+let g:ale_sign_error = 'X' " could use emoji
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+" %linter% is the name of the linter that provided the message
+" %s is the error or warning message
+let g:ale_echo_msg_format = '%linter% says %s'
+" Map keys to navigate between lines with errors and warnings.
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
 " }
 
 " { PHP syntax file config
