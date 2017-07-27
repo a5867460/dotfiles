@@ -659,8 +659,8 @@ let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xm
 
 let g:syntastic_always_populate_loc_list = 1
 autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
-autocmd FileType javascript.jsx nnoremap <C-]> mZ:FlowJumpToDef<CR>
-autocmd FileType javascript.jsx nnoremap <C-t> 'Z
+autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
+autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
 nnoremap <script> <silent> <F7> :call ToggleLocationList()<CR>
 let g:flow#autoclose = 1
 "let g:syntastic_auto_loc_list = 1
@@ -670,7 +670,7 @@ let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'javascript': ['flow'],
             \  'jsx': ['flow'],
-            \  'go': ['golint', 'gosimple', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
+            \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
             \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
             \}
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
@@ -761,17 +761,6 @@ func Gentags()
     call vimproc#system("ctags -R --fields=+aimlS --languages=php", "", 10000)
 endfunc
 
-func UpdateGitSubModule()
-    exec "!git submodule update --init --recursive"
-endfunc
-
-func InitPHPProj()
-    call UpdateGitSubModule()
-    exec "!curl -sS https://raw.githubusercontent.com/a5867460/vimset/master/composer.json > ./composer.json"
-    exec "!composer install"
-    call Gentags()
-endfunc
-
 func UpdateComposer()
     if ! executable("mcomposer")
         echom "mcomposer unexecutable!!!"
@@ -788,4 +777,26 @@ func UpdateComposer()
     endif
 endfunc
 " }
+
+let g:jump_stack = 0
+
+func JumpToDefOnJsx()
+    let lastPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
+    :FlowJumpToDef
+    let currentPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
+    if lastPos != currentPos
+        let g:jump_stack += 1
+    endif
+    echo g:jump_stack
+endfunc
+
+func JumpBackOnJsx()
+    if g:jump_stack > 0
+        let g:jump_stack -= 1
+        execute "normal \<C-o>"
+        echo g:jump_stack
+    else
+        echo '无回退位置'
+    endif
+endfunc
 
