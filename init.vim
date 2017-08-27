@@ -20,11 +20,18 @@ endif
 " }
 
 " Windows Compatible {
-" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
+" On Windows, also use '.nvim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if WINDOWS()
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+    set runtimepath=$HOME/.nvim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.nvim/after
 endif
+" }
+
+" Arrow Key Fix {
+" https://github.com/spf13/spf13-vim/issues/780
+"if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
+"inoremap <silent> <C-[>OC <RIGHT>
+"endif
 " }
 
 " }
@@ -33,39 +40,45 @@ endif
 if LINUX()
     set backspace=2
     set mouse=a
-    runtime! debian.vim
+    runtime! debian.nvim
     if filereadable("/etc/vim/vimrc")
         source /etc/vim/vimrc
     endif
 endif
 
-if &compatible
-    set nocompatible
-endif
-call plug#begin('~/.vim/plugged')
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.nvim/plugged')
+
+" Make sure you use single quotes
 
 Plug 'scrooloose/nerdtree'
 Plug 'altercation/vim-colors-solarized'
-Plug 'spf13/vim-colors'
+"Plug 'frankier/neovim-colors-solarized-truecolor-only'
+"Plug 'spf13/vim-colors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ctrlpvim/ctrlp'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale',{'for': ['go', 'php']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'luochen1990/rainbow'
 Plug 'majutsushi/tagbar'
 Plug 'honza/vim-snippets'
-Plug 'arnaud-lb/vim-php-namespace'
 Plug 'beyondwords/vim-twig'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
@@ -73,7 +86,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'briancollins/vim-jst'
 Plug 'kchmck/vim-coffee-script'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
+"Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
@@ -81,6 +94,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'powerline/fonts'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Chiel92/vim-autoformat'
 
 Plug 'reedes/vim-textobj-sentence'
 Plug 'reedes/vim-textobj-quote'
@@ -91,12 +105,19 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'mhinz/vim-signify'
 
-"Plug 'jelera/vim-javascript-syntax'
+Plug 'jelera/vim-javascript-syntax'
 
-"Plug 'shawncplus/phpcomplete.vim'
-Plug 'lvht/phpcd.vim', {'do': 'composer install'}
-"Plug 'mkusher/padawan.vim', {'on_ft': 'php'}
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'roxma/nvim-completion-manager'
+"Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'Shougo/echodoc.vim'
+
 Plug 'vim-scripts/php_localvarcheck.vim'
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'arnaud-lb/vim-php-namespace'
 
 Plug 'mxw/vim-jsx'
 
@@ -110,17 +131,14 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'mileszs/ack.vim'
 
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-
-Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'SirVer/ultisnips'
 
-Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
-Plug 'w0rp/ale', {'for': ['javascript', 'jsx', 'go', 'php']}
-
-Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
+Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 Plug 'posva/vim-vue'
 
@@ -136,29 +154,29 @@ Plug '2072/PHP-Indenting-for-VIm'
 
 Plug 'itchyny/vim-cursorword'
 
-"" { Typescript Plugin
-"Plug 'leafgarland/typescript-vim', {'on_ft': 'typescript'}
+" { Typescript Plugin
 
-Plug 'Quramy/tsuquyomi',{'for':'typescript'}
+Plug 'steelsojka/deoplete-flow'
 
-Plug 'jason0x43/vim-js-indent'
+Plug 'flowtype/vim-flow'
 
-Plug 'flowtype/vim-flow', {'for': 'javascript', 'do': 'npm install -g flow-bin'}
+Plug 'mhartington/nvim-typescript'
 
-"Plug 'Shougo/echodoc.vim'
+Plug 'Quramy/tsuquyomi'
 
+"Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
-Plug 'junegunn/fzf', { 'do': './install --all', 'dir': '~/.fzf'}
-Plug 'junegunn/fzf.vim'
-
-Plug 'Chiel92/vim-autoformat'
-
-Plug 'milkypostman/vim-togglelist'
-
-Plug 'vim-perl/vim-perl', {'for':'perl','do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'}
-
+Plug 'jason0x43/vim-js-indent'
 "" }
+Plug 'Shougo/deol.nvim'
+
+Plug 'tpope/vim-endwise'
+
+Plug 'ianva/vim-youdao-translater'
+
+Plug 'a5867460/vim-correction'
+
 
 "Plug 'OrangeT/vim-csharp'
 
@@ -167,140 +185,22 @@ Plug 'vim-perl/vim-perl', {'for':'perl','do': 'make clean carp dancer highlight-
 " Initialize plugin system
 call plug#end()
 
-"set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-"if dein#load_state('~/.vim/bundle')
-"call dein#begin('~/.vim/bundle')
-
-"call dein#add('scrooloose/nerdtree')
-"call dein#add('altercation/vim-colors-solarized')
-"call dein#add('spf13/vim-colors')
-"call dein#add('tpope/vim-surround')
-"call dein#add('tpope/vim-repeat')
-"call dein#add('rhysd/conflict-marker.vim')
-"call dein#add('jiangmiao/auto-pairs')
-"call dein#add('ctrlpvim/ctrlp.vim')
-"call dein#add('tacahiroy/ctrlp-funky')
-"call dein#add('vim-scripts/matchit.zip')
-"call dein#add('easymotion/vim-easymotion')
-"call dein#add('mbbill/undotree')
-"call dein#add('Yggdroot/indentLine.git')
-"call dein#add('myhere/vim-nodejs-complete.git')
-"call dein#add('scrooloose/syntastic')
-"call dein#add('tpope/vim-fugitive')
-"call dein#add('mattn/gist-vim')
-"call dein#add('scrooloose/nerdcommenter')
-"call dein#add('luochen1990/rainbow')
-"call dein#add('majutsushi/tagbar')
-"call dein#add('honza/vim-snippets')
-"call dein#add('arnaud-lb/vim-php-namespace')
-"call dein#add('beyondwords/vim-twig')
-"call dein#add('elzr/vim-json')
-"call dein#add('groenewege/vim-less')
-"call dein#add('pangloss/vim-javascript')
-"call dein#add('briancollins/vim-jst')
-"call dein#add('kchmck/vim-coffee-script')
-"call dein#add('hail2u/vim-css3-syntax')
-"call dein#add('gorodinskiy/vim-coloresque')
-"call dein#add('tpope/vim-haml')
-"call dein#add('mattn/emmet-vim')
-"call dein#add('morhetz/gruvbox')
-"call dein#add('digitaltoad/vim-pug.git')
-"call dein#add('powerline/fonts')
-"call dein#add('vim-airline/vim-airline')
-"call dein#add('vim-airline/vim-airline-themes')
-
-"call dein#add('reedes/vim-textobj-sentence')
-"call dein#add('reedes/vim-textobj-quote')
-"call dein#add('kana/vim-textobj-user')
-"call dein#add('kana/vim-textobj-indent')
-
-"call dein#add('osyo-manga/vim-over')
-
-"call dein#add('mhinz/vim-signify')
-
-""call dein#add('jelera/vim-javascript-syntax')
-
-""call dein#add('shawncplus/phpcomplete.vim.git')
-"call dein#add('lvht/phpcd.vim', {'build': 'composer install'})
-""call dein#add('mkusher/padawan.vim', {'on_ft': 'php'})
-"call dein#add('vim-scripts/php_localvarcheck.vim')
-
-"call dein#add('mxw/vim-jsx')
-
-"call dein#add('tpope/vim-abolish.git')
-
-"call dein#add('jlanzarotta/bufexplorer.git')
-
-"call dein#add('godlygeek/tabular')
-
-"call dein#add('plasticboy/vim-markdown')
-
-"call dein#add('mileszs/ack.vim')
-
-"call dein#add('Shougo/vimproc.vim', {"build": "make"})
-
-"call dein#add('Valloric/YouCompleteMe', {"build": "python ./install.py"})
-
-"call dein#add('SirVer/ultisnips')
-
-"call dein#add('ternjs/tern_for_vim', {"on_ft":"javascript","build": "npm install"})
-
-"call dein#add('w0rp/ale', {"on_ft":[ "javascript", "jsx", "go", "php"]})
-
-"call dein#add('fatih/vim-go', {"build": "GoInstallBinaries"})
-
-"call dein#add('posva/vim-vue')
-
-"call dein#add('tpope/vim-dispatch')
-
-"call dein#add('KabbAmine/zeavim.vim')
-
-"call dein#add('Shougo/vimshell.vim')
-
-"call dein#add('StanAngeloff/php.vim')
-
-"call dein#add('2072/PHP-Indenting-for-VIm')
-
-"call dein#add('itchyny/vim-cursorword')
-
-""" { Typescript Plugin
-""call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
-
-"call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
-
-"call dein#add('jason0x43/vim-js-indent')
-
-"call dein#add('flowtype/vim-flow', {'on_ft': 'javascript', "build": "npm install -g flow-bin"})
-
-""call dein#add('Shougo/echodoc.vim')
-
-"call dein#add('HerringtonDarkholme/yats.vim')
-
-"call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-"call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-
-"call dein#add('Chiel92/vim-autoformat')
-
-"call dein#add('milkypostman/vim-togglelist')
-
-"call dein#add('vim-perl/vim-perl', {"on_ft":"perl","build": "make clean carp dancer highlight-all-pragmas moose test-more try-tiny"})
-
-""" }
-
-""call dein#add('OrangeT/vim-csharp')
-
-""call dein#add('OmniSharp/omnisharp-vim')
-
-"call dein#end()
-"call dein#save_state()
-"endif
-
-filetype plugin indent on
-syntax enable
+filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 filetype plugin on
 filetype on                  " required
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+
 
 
 
@@ -311,9 +211,9 @@ set wrap
 set number
 set linebreak
 set t_Co=256
+"set termguicolors
 colorscheme gruvbox
 set background=dark
-"cd /home/yuzhe/
 set cursorline                  " Highlight current line
 set cursorcolumn                  " Highlight current line
 set shiftwidth=4
@@ -339,8 +239,6 @@ set showcmd
 let mapleader = ","
 set ttyfast
 set lazyredraw
-set completeopt+=preview
-set fileformats=unix
 nnoremap j jzz
 nnoremap k kzz
 
@@ -351,10 +249,11 @@ nnoremap <C-h> :OverCommandLine<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+
 set history=500
 set undolevels=10000
 if has("persistent_undo")
-    set undodir=~/.vim/undodir/
+    set undodir=~/.nvim/undodir/
     set undofile
 endif
 
@@ -373,12 +272,6 @@ let g:airline_left_alt_sep = '»'
 let g:airline_right_alt_sep = '«'
 
 " UI=======================================================================
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-color solarized             " Load a colorscheme
-let g:airline_theme = 'solarized'
 
 if has('gui_running')
     set guifont=Ubuntu\ Mono\ derivative\Powerline\ 12
@@ -398,19 +291,21 @@ let g:indentLine_enabled = 1
 let g:indentLine_char = "┊"
 let g:indentLine_color_gui = '#66d9ef'
 
-colorscheme solarized
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+color solarized             " Load a colorscheme
 let g:airline_theme = 'solarized'
-
-
 
 
 
 "  < 插件配置 >
 "----------------------------------------------------------------------------------------
 
-
 " OmniComplete {
-" To disable omni complete, add the following to your .vimrc.before.local file:
+" To disable omni complete, add the following to your .nvimrc.before.local file:
 "   let g:spf13_no_omni_complete = 1
 "if !exists('g:spf13_no_omni_complete')
 if has("autocmd") && exists("+omnifunc")
@@ -441,7 +336,7 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " }
 
 " Ctags {
-set tags=./tags;/,~/.vimtags
+set tags=./tags;/,~/.nvimtags
 "set tags+=/usr/include/tags
 
 " Make tags placed in .git/tags file available in all levels of a repository
@@ -451,6 +346,31 @@ if gitroot != ''
 endif
 " }
 
+"{
+
+"let g:syntastic_auto_loc_list = 1
+" Asynchronous Lint Engine (ALE)
+" Limit linters used for JavaScript.
+let g:ale_emit_conflict_warnings = 0
+let g:ale_linters = {
+            \  'javascript': ['flow'],
+            \  'jsx': ['flow'],
+            \  'go': ['golint', 'gosimple', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
+            \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
+            \}
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+let g:ale_sign_error = 'X' " could use emoji
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+" %linter% is the name of the linter that provided the message
+" %s is the error or warning message
+let g:ale_echo_msg_format = '%linter% says %s'
+" Map keys to navigate between lines with errors and warnings.
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
+" }
+"}
 
 " NerdTree {
 nnoremap <leader>e :NERDTreeToggle<CR>
@@ -470,7 +390,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 " AutoCloseTag {
 " Make it so AutoCloseTag works for xml and xhtml files as well
-au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+au FileType xhtml,xml ru ftplugin/html/autoclosetag.nvim
 nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 " }
 
@@ -482,86 +402,108 @@ let g:vim_json_syntax_conceal = 0
 " }
 
 
-" ctrlp {
-let g:ctrlp_working_path_mode = 'ra'
 nnoremap <silent> <leader>s :Files<cr>
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+" ctrlp {
+if isdirectory(expand("~/.nvim/plugged/ctrlp.nvim/"))
+    let g:ctrlp_working_path_mode = 'ra'
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
-if executable('ag')
-    let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-elseif executable('ack-grep')
-    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-    let s:ctrlp_fallback = 'ack %s --nocolor -f'
-    " On Windows use "dir" as fallback command.
-elseif WINDOWS()
-    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-else
-    let s:ctrlp_fallback = 'find %s -type f'
+    if executable('ag')
+        let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+    elseif executable('ack-grep')
+        let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
+    elseif executable('ack')
+        let s:ctrlp_fallback = 'ack %s --nocolor -f'
+        " On Windows use "dir" as fallback command.
+    elseif WINDOWS()
+        let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+    else
+        let s:ctrlp_fallback = 'find %s -type f'
+    endif
+    if exists("g:ctrlp_user_command")
+        unlet g:ctrlp_user_command
+    endif
+    let g:ctrlp_user_command = {
+                \ 'types': {
+                \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': s:ctrlp_fallback
+                \ }
+
+    if isdirectory(expand("~/.nvim/plugged/ctrlp-funky/"))
+        " CtrlP extensions
+        let g:ctrlp_extensions = ['funky']
+
+        "funky
+        nnoremap <Leader>fu :CtrlPFunky<Cr>
+    endif
 endif
-if exists("g:ctrlp_user_command")
-    unlet g:ctrlp_user_command
-endif
-let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': s:ctrlp_fallback
-            \ }
-
-" CtrlP extensions
-let g:ctrlp_extensions = ['funky']
-
-"funky
-nnoremap <Leader>fu :CtrlPFunky<Cr>
 "}
 
 
 " TagBar {
-nnoremap <silent> <leader>tt :TagbarToggle<CR>
-let g:tagbar_ctags_bin = 'ctags'
-let g:tagbar_width = 60
+if isdirectory(expand("~/.nvim/plugged/tagbar/"))
+    nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    let g:tagbar_ctags_bin = 'ctags'
+    let g:tagbar_width = 35
+endif
 "}
 
 " Fugitive {
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-" Mnemonic _i_nteractive
-nnoremap <silent> <leader>gi :Git add -p %<CR>
-nnoremap <silent> <leader>gg :SignifyToggle<CR>
+if isdirectory(expand("~/.nvim/plugged/vim-fugitive/"))
+    nnoremap <silent> <leader>gs :Gstatus<CR>
+    nnoremap <silent> <leader>gd :Gdiff<CR>
+    nnoremap <silent> <leader>gc :Gcommit<CR>
+    nnoremap <silent> <leader>gb :Gblame<CR>
+    nnoremap <silent> <leader>gl :Glog<CR>
+    nnoremap <silent> <leader>gp :Git push<CR>
+    nnoremap <silent> <leader>gr :Gread<CR>
+    nnoremap <silent> <leader>gw :Gwrite<CR>
+    nnoremap <silent> <leader>ge :Gedit<CR>
+    " Mnemonic _i_nteractive
+    nnoremap <silent> <leader>gi :Git add -p %<CR>
+    nnoremap <silent> <leader>gg :SignifyToggle<CR>
+endif
 "}
 
 
 " youcompleteme{
-let g:acp_enableAtStartup = 0
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#file#enable_buffer_path = 1
 
-" enable completion from tags
-"let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_cache_omnifunc = 1
-let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_seed_identifiers_with_syntax = 1
-"let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
+let g:deoplete#ignore_sources.go = ['around']
 
-" remap Ultisnips for compatibility for YCM
-let g:UltiSnipsExpandTrigger = '<C-k>'
-let g:UltiSnipsJumpForwardTrigger = '<C-k>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-j>'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/.snippets/']
+"let g:nvim_typescript#max_completion_detail = 100
 
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+let g:deoplete#sources#flow#flow_bin = 'flow'
+let g:deoplete#sources#tss#javascript_support = 1
+"let g:tsuquyomi_javascript_support = 1
+"let g:tsuquyomi_auto_open = 1
+
+
+let g:echodoc_enable_at_startup = 1
+
+autocmd FileType go :call deoplete#custom#set('deoplete_go', 'rank', 9999)
+autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
+autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
+autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
+call deoplete#custom#set('_', 'sorters', ['sorter_rank'])
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:UltiSnipsExpandTrigger        = "<c-k>"
+let g:UltiSnipsJumpForwardTrigger       = "<c-k>"
+let g:UltiSnipsJumpBackwardTrigger      = "<c-j>"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.nvim/.snippets/']
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -570,43 +512,26 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType javascript,jsx,coffee,vue setlocal omnifunc=tern#Complete
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
-" Haskell post write lint and check with ghcmod
-" $ `cabal install ghcmod` if missing and ensure
-" ~/.cabal/bin is in your $PATH.
-if !executable("ghcmod")
-    autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-endif
-
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
-
-let g:ycm_semantic_triggers = {}
-let g:ycm_semantic_triggers.php =
-            \ ['->', '::', '(', 'use ', 'namespace ', '\']
 
 " Disable the neosnippet preview candidate window
 " When enabled, there can be too much visual noise
 " especially when splits are used.
 set completeopt+=preview
 set completeopt+=longest
-set completeopt+=noinsert
-set completeopt+=noselect
+set completeopt+=noinsert,noselect
 "}
 
 
 " UndoTree {
-nnoremap <Leader>u :UndotreeToggle<CR>
-" If undotree is opened, it is likely one wants to interact with it.
-let g:undotree_SetFocusWhenToggle=1
+if isdirectory(expand("~/.nvim/plugged/undotree/"))
+    nnoremap <Leader>u :UndotreeToggle<CR>
+    " If undotree is opened, it is likely one wants to interact with it.
+    let g:undotree_SetFocusWhenToggle=1
+endif
 " }
-
-
 
 
 
@@ -668,6 +593,7 @@ let g:rainbow_conf = {
             \}
 
 " Tabularize {
+"if isdirectory(expand("~/.nvim/plugged/tabular"))
 nmap <Leader>a& :Tabularize /&<CR>
 vmap <Leader>a& :Tabularize /&<CR>
 nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
@@ -684,6 +610,7 @@ nmap <Leader>a,, :Tabularize /,\zs<CR>
 vmap <Leader>a,, :Tabularize /,\zs<CR>
 nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+"endif
 " }
 
 " vim-go{
@@ -693,20 +620,19 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_gocode_unimported_packages = 1
 let g:go_fmt_command = "goimports"
-"let g:syntastic_go_checkers = ['errcheck', 'govet', 'golint']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:syntastic_enable_go_checker = 0
 let g:go_list_type = "quickfix"
 au FileType go nmap <leader>rt <Plug>(go-run-tab)
 au FileType go nmap <leader>rs <Plug>(go-run-split)
 au FileType go nmap <leader>rv <Plug>(go-run-vertical)
-au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nnoremap <leader>im :GoImport<Space>
-au FileType go inoremap <leader>im :GoImport<Space>
 au FileType go nnoremap <leader>ima :GoImportAs<Space>
+au FileType go inoremap <leader>im :GoImport<Space>
 au FileType go inoremap <leader>ima :GoImportAs<Space>
+au FileType go nmap <leader>r <Plug>(go-run)
+"au FileType go nnoremap <leader>b <Plug>(go-build)
+"au FileType go nnoremap <leader>t <Plug>(go-test)
+"au FileType go nnoremap <leader>c <Plug>(go-coverage)
 " }
 
 " { Ack-vim
@@ -719,6 +645,7 @@ nnoremap <Leader>a :Ack!<Space>
 " C compile{
 
 nnoremap <F5> :make<CR>
+"nnoremap <F8> :call Debug()<CR>
 "定义CompileRun函数，用来对不用外接库的小程序进行编译和运行,自己可以根据文件名扩展或实际情况修改参数
 func CompileRun()
     exec "w"
@@ -730,7 +657,6 @@ func CompileRun()
 endfunc
 "结束定义CompileRun
 
-"nnoremap <F5> :call Debug()<CR>
 "定义Debug函数，用来调试小程序
 func Debug()
     exec "w"
@@ -751,7 +677,6 @@ func Debug()
     endif
 endfunc
 "定义dubug结束
-
 " }
 
 " vim-javascript{
@@ -760,10 +685,9 @@ let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
 " }
 " { padawan key map
-autocmd Filetype c,cpp,php inoremap <C-o> <C-x><C-o>
+autocmd FileType php setlocal completeopt+=menu,preview
 " }
 " { php namespace config
-let g:php_namespace_sort_after_insert = 1
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
@@ -776,41 +700,12 @@ function! IPhpExpandClass()
 endfunction
 autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
+let g:php_namespace_sort_after_insert = 1
 " }
 " { php syntastic config
-let g:syntastic_php_checkers = ['phpstan','php', 'phpcs', 'phpmd']
-let g:syntastic_php_phpcs_args = "--standard=Custom"
-let g:syntastic_php_phpstan_args = "-l 5"
-let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml"
-
-
-let g:syntastic_always_populate_loc_list = 1
-autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
-autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
-autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
-nnoremap <script> <silent> <F7> :call ToggleLocationList()<CR>
-let g:flow#autoclose = 1
-"let g:syntastic_auto_loc_list = 1
-" Asynchronous Lint Engine (ALE)
-" Limit linters used for JavaScript.
-let g:ale_emit_conflict_warnings = 0
-let g:ale_linters = {
-            \  'javascript': ['flow'],
-            \  'jsx': ['flow'],
-            \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
-            \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
-            \}
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
-let g:ale_sign_error = 'X' " could use emoji
-let g:ale_sign_warning = '?' " could use emoji
-let g:ale_statusline_format = ['X %d', '? %d', '']
-" %linter% is the name of the linter that provided the message
-" %s is the error or warning message
-let g:ale_echo_msg_format = '%linter% says %s'
-" Map keys to navigate between lines with errors and warnings.
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+"let g:syntastic_php_phpcs_args = "--standard=Custom"
+"let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml"
 " }
 
 " { PHP syntax file config
@@ -827,16 +722,13 @@ augroup END
 
 "{ reload conf
 noremap <F6> :call ReloadToDev()<cr>
-noremap <F8> :call UpdateComposer()<cr>
-noremap <F3> :Autoformat<cr>
 "}
 
 " { Typescript config
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-let g:tsuquyomi_shortest_import_path = 1
-autocmd FileType typescript setlocal completeopt+=menu,preview
+"let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
+"let g:nvim_typescript#javascript_support = 100
+"let g:nvim_typescript#type_info_on_hold = 1
+"let g:nvim_typescript#signature_complete = 1
 " }
 
 " { auto-indent
@@ -845,12 +737,16 @@ let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
-let g:p_auto_indent_filetype = ['vim', 'typescript', 'jsx']
+let g:p_auto_indent_filetype = ['vim', 'typescript']
 autocmd BufWrite *
             \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
             \ :Autoformat |
             \ endif
 " }
+
+"{
+nnoremap <silent> <leader>t :<C-u>Ydc<CR>
+"}
 
 let g:OmniSharp_server_type = 'roslyn'
 
@@ -858,15 +754,6 @@ let g:OmniSharp_server_type = 'roslyn'
 " {
 
 func ReloadToDev()
-    autocmd BufWrite *
-                \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
-                \ :Autoformat |
-                \ endif
-    :write
-    if  ! filereadable("./reload.sh")
-        echom 'No reload file'
-        return
-    endif
     let l:res = vimproc#system("./reload.sh")
     let l:reslist = split(l:res, '\n\|\r\n')
     let l:qflist = []
@@ -880,7 +767,7 @@ func ReloadToDev()
     call timer_start(5000, "CloseQF")
 endfunc
 
-func CloseQF(...)
+func CloseQF()
     cclose
 endfunc
 
@@ -888,42 +775,16 @@ func Gentags()
     call vimproc#system("ctags -R --fields=+aimlS --languages=php", "", 10000)
 endfunc
 
-func UpdateComposer()
-    if ! executable("mcomposer")
-        echom "mcomposer unexecutable!!!"
-        return
-    endif
-    if ! filereadable(expand("./composer.json"))
-        echom "composer.json not exist"
-        return
-    endif
-    if isdirectory(expand("./vendor"))
-        call vimproc#system("mcomposer", "", 300000)
-    else
-        call vimproc#system("mcomposer install", "", 300000)
-    endif
+func UpdateGitSubModule()
+    exec "!git submodule update --init --recursive"
 endfunc
+
+func InitPHPProj()
+    call UpdateGitSubModule()
+    call Gentags()
+    exec "!curl -sS https://raw.githubusercontent.com/a5867460/vimset/master/composer.json > ./composer.json"
+    exec "!composer install"
+endfunc
+
 " }
-
-let g:jump_stack = 0
-
-func JumpToDefOnJsx()
-    let lastPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
-    :FlowJumpToDef
-    let currentPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
-    if lastPos != currentPos
-        let g:jump_stack += 1
-    endif
-    echo g:jump_stack
-endfunc
-
-func JumpBackOnJsx()
-    if g:jump_stack > 0
-        let g:jump_stack -= 1
-        execute "normal \<C-o>"
-        echo g:jump_stack
-    else
-        echo '无回退位置'
-    endif
-endfunc
 
