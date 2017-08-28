@@ -767,7 +767,7 @@ func ReloadToDev()
     call timer_start(5000, "CloseQF")
 endfunc
 
-func CloseQF()
+func CloseQF(...)
     cclose
 endfunc
 

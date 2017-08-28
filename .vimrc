@@ -795,8 +795,6 @@ let g:flow#autoclose = 1
 " Limit linters used for JavaScript.
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
-            \  'javascript': ['flow'],
-            \  'jsx': ['flow'],
             \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
             \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
             \}
