@@ -58,8 +58,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine', {'for': ['php', 'javascript', 'jsx']}
 Plug 'myhere/vim-nodejs-complete'
-Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
-"Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
+"Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
+Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
@@ -118,7 +118,7 @@ Plug 'SirVer/ultisnips'
 
 Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
 
-Plug 'w0rp/ale', {'for': ['go']}
+Plug 'w0rp/ale', {'for': ['php', 'go']}
 "Plug 'w0rp/ale', {'for': ['go', 'php']}
 
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
@@ -668,8 +668,11 @@ let g:syntastic_auto_loc_list = 1
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
+            \  'php': ['phpstan', 'phpcs', 'php -l'],
             \}
 "\  'php': ['phpstan analyse --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
+let g:ale_php_phpcs_standard = 'Custom'
+let g:ale_php_phpstan_level = '5'
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
