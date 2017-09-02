@@ -51,14 +51,15 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ctrlpvim/ctrlp'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'vim-scripts/matchit.zip'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
-Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine', {'for': ['php', 'javascript', 'jsx']}
 Plug 'myhere/vim-nodejs-complete'
-Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
+"Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
@@ -93,10 +94,9 @@ Plug 'mhinz/vim-signify'
 
 "Plug 'jelera/vim-javascript-syntax'
 
-"Plug 'shawncplus/phpcomplete.vim'
 Plug 'lvht/phpcd.vim', {'do': 'composer install'}
-"Plug 'mkusher/padawan.vim', {'on_ft': 'php'}
 Plug 'vim-scripts/php_localvarcheck.vim'
+Plug 'beanworks/vim-phpfmt', {'for': 'php'}
 
 Plug 'mxw/vim-jsx'
 
@@ -118,7 +118,8 @@ Plug 'SirVer/ultisnips'
 
 Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
 
-Plug 'w0rp/ale', {'for': ['javascript', 'jsx', 'go', 'php']}
+Plug 'w0rp/ale', {'for': ['go']}
+"Plug 'w0rp/ale', {'for': ['go', 'php']}
 
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 
@@ -167,134 +168,6 @@ Plug 'vim-perl/vim-perl', {'for':'perl','do': 'make clean carp dancer highlight-
 " Initialize plugin system
 call plug#end()
 
-"set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
-
-"if dein#load_state('~/.vim/bundle')
-"call dein#begin('~/.vim/bundle')
-
-"call dein#add('scrooloose/nerdtree')
-"call dein#add('altercation/vim-colors-solarized')
-"call dein#add('spf13/vim-colors')
-"call dein#add('tpope/vim-surround')
-"call dein#add('tpope/vim-repeat')
-"call dein#add('rhysd/conflict-marker.vim')
-"call dein#add('jiangmiao/auto-pairs')
-"call dein#add('ctrlpvim/ctrlp.vim')
-"call dein#add('tacahiroy/ctrlp-funky')
-"call dein#add('vim-scripts/matchit.zip')
-"call dein#add('easymotion/vim-easymotion')
-"call dein#add('mbbill/undotree')
-"call dein#add('Yggdroot/indentLine.git')
-"call dein#add('myhere/vim-nodejs-complete.git')
-"call dein#add('scrooloose/syntastic')
-"call dein#add('tpope/vim-fugitive')
-"call dein#add('mattn/gist-vim')
-"call dein#add('scrooloose/nerdcommenter')
-"call dein#add('luochen1990/rainbow')
-"call dein#add('majutsushi/tagbar')
-"call dein#add('honza/vim-snippets')
-"call dein#add('arnaud-lb/vim-php-namespace')
-"call dein#add('beyondwords/vim-twig')
-"call dein#add('elzr/vim-json')
-"call dein#add('groenewege/vim-less')
-"call dein#add('pangloss/vim-javascript')
-"call dein#add('briancollins/vim-jst')
-"call dein#add('kchmck/vim-coffee-script')
-"call dein#add('hail2u/vim-css3-syntax')
-"call dein#add('gorodinskiy/vim-coloresque')
-"call dein#add('tpope/vim-haml')
-"call dein#add('mattn/emmet-vim')
-"call dein#add('morhetz/gruvbox')
-"call dein#add('digitaltoad/vim-pug.git')
-"call dein#add('powerline/fonts')
-"call dein#add('vim-airline/vim-airline')
-"call dein#add('vim-airline/vim-airline-themes')
-
-"call dein#add('reedes/vim-textobj-sentence')
-"call dein#add('reedes/vim-textobj-quote')
-"call dein#add('kana/vim-textobj-user')
-"call dein#add('kana/vim-textobj-indent')
-
-"call dein#add('osyo-manga/vim-over')
-
-"call dein#add('mhinz/vim-signify')
-
-""call dein#add('jelera/vim-javascript-syntax')
-
-""call dein#add('shawncplus/phpcomplete.vim.git')
-"call dein#add('lvht/phpcd.vim', {'build': 'composer install'})
-""call dein#add('mkusher/padawan.vim', {'on_ft': 'php'})
-"call dein#add('vim-scripts/php_localvarcheck.vim')
-
-"call dein#add('mxw/vim-jsx')
-
-"call dein#add('tpope/vim-abolish.git')
-
-"call dein#add('jlanzarotta/bufexplorer.git')
-
-"call dein#add('godlygeek/tabular')
-
-"call dein#add('plasticboy/vim-markdown')
-
-"call dein#add('mileszs/ack.vim')
-
-"call dein#add('Shougo/vimproc.vim', {"build": "make"})
-
-"call dein#add('Valloric/YouCompleteMe', {"build": "python ./install.py"})
-
-"call dein#add('SirVer/ultisnips')
-
-"call dein#add('ternjs/tern_for_vim', {"on_ft":"javascript","build": "npm install"})
-
-"call dein#add('w0rp/ale', {"on_ft":[ "javascript", "jsx", "go", "php"]})
-
-"call dein#add('fatih/vim-go', {"build": "GoInstallBinaries"})
-
-"call dein#add('posva/vim-vue')
-
-"call dein#add('tpope/vim-dispatch')
-
-"call dein#add('KabbAmine/zeavim.vim')
-
-"call dein#add('Shougo/vimshell.vim')
-
-"call dein#add('StanAngeloff/php.vim')
-
-"call dein#add('2072/PHP-Indenting-for-VIm')
-
-"call dein#add('itchyny/vim-cursorword')
-
-""" { Typescript Plugin
-""call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
-
-"call dein#add('Quramy/tsuquyomi',{'on_ft':'typescript'})
-
-"call dein#add('jason0x43/vim-js-indent')
-
-"call dein#add('flowtype/vim-flow', {'on_ft': 'javascript', "build": "npm install -g flow-bin"})
-
-""call dein#add('Shougo/echodoc.vim')
-
-"call dein#add('HerringtonDarkholme/yats.vim')
-
-"call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-"call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-
-"call dein#add('Chiel92/vim-autoformat')
-
-"call dein#add('milkypostman/vim-togglelist')
-
-"call dein#add('vim-perl/vim-perl', {"on_ft":"perl","build": "make clean carp dancer highlight-all-pragmas moose test-more try-tiny"})
-
-""" }
-
-""call dein#add('OrangeT/vim-csharp')
-
-""call dein#add('OmniSharp/omnisharp-vim')
-
-"call dein#end()
-"call dein#save_state()
-"endif
 
 filetype plugin indent on
 syntax enable
@@ -570,7 +443,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd FileType javascript,jsx,coffee,vue setlocal omnifunc=tern#Complete
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
@@ -790,14 +662,14 @@ autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
 autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
 nnoremap <script> <silent> <F7> :call ToggleLocationList()<CR>
 let g:flow#autoclose = 1
-"let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 " Asynchronous Lint Engine (ALE)
 " Limit linters used for JavaScript.
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
-            \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
             \}
+"\  'php': ['phpstan analyse --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -838,7 +710,7 @@ autocmd FileType typescript setlocal completeopt+=menu,preview
 " }
 
 " { auto-indent
-let g:formatdef_phpcbf = '"phpcbf fix --standard=Custom"'
+let g:formatdef_phpcbf = '"phpcbf --standard=Custom"'
 let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
@@ -925,3 +797,4 @@ func JumpBackOnJsx()
     endif
 endfunc
 
+let g:phpfmt_standard = 'PSR2'

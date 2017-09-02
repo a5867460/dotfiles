@@ -71,8 +71,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
-"Plug 'scrooloose/syntastic'
-Plug 'w0rp/ale',{'for': ['go', 'php']}
+"Plug 'scrooloose/syntastic',{'for': ['php']}
+Plug 'w0rp/ale',{'for': ['php', 'go']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
@@ -156,9 +156,9 @@ Plug 'itchyny/vim-cursorword'
 
 " { Typescript Plugin
 
-Plug 'steelsojka/deoplete-flow'
+Plug 'steelsojka/deoplete-flow', {'for': ['javascript', 'jsx']}
 
-Plug 'flowtype/vim-flow'
+Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'mhartington/nvim-typescript'
 
@@ -348,16 +348,19 @@ endif
 
 "{
 
-"let g:syntastic_auto_loc_list = 1
 " Asynchronous Lint Engine (ALE)
 " Limit linters used for JavaScript.
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
-            \  'javascript': ['flow'],
-            \  'jsx': ['flow'],
             \  'go': ['golint', 'gosimple', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
-            \  'php': ['php -l', 'phpstan', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
+            \  'php': ['phpstan', 'php -l', 'phpcs'],
             \}
+
+"\  'javascript': ['flow'],
+"\  'jsx': ['flow'],
+"\  'php': ['phpstan --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
+let g:ale_php_phpcs_standard = 'Custom'
+let g:ale_php_phpstan_level = '5'
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -494,8 +497,8 @@ let g:echodoc_enable_at_startup = 1
 
 autocmd FileType go :call deoplete#custom#set('deoplete_go', 'rank', 9999)
 autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
-autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
-autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
+"autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
+"autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
 call deoplete#custom#set('_', 'sorters', ['sorter_rank'])
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -703,9 +706,14 @@ autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 let g:php_namespace_sort_after_insert = 1
 " }
 " { php syntastic config
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-"let g:syntastic_php_phpcs_args = "--standard=Custom"
-"let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml"
+
+let g:syntastic_php_checkers = ['phpstan','php', 'phpcs', 'phpmd']
+let g:syntastic_php_phpcs_args = "--standard=Custom"
+let g:syntastic_php_phpstan_args = "-l 5"
+let g:syntastic_php_phpmd_args = "/home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml"
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 " }
 
 " { PHP syntax file config
@@ -722,6 +730,7 @@ augroup END
 
 "{ reload conf
 noremap <F6> :call ReloadToDev()<cr>
+noremap <F3> :Autoformat<cr>
 "}
 
 " { Typescript config
@@ -732,7 +741,7 @@ noremap <F6> :call ReloadToDev()<cr>
 " }
 
 " { auto-indent
-let g:formatdef_phpcbf = '"phpcbf fix --standard=Custom"'
+let g:formatdef_phpcbf = '"phpcbf --standard=Custom"'
 let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
