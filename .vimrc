@@ -58,8 +58,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine', {'for': ['php', 'javascript', 'jsx']}
 Plug 'myhere/vim-nodejs-complete'
-"Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
 Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
+"Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
@@ -118,8 +118,8 @@ Plug 'SirVer/ultisnips'
 
 Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
 
-Plug 'w0rp/ale', {'for': ['php', 'go']}
-"Plug 'w0rp/ale', {'for': ['go', 'php']}
+"Plug 'w0rp/ale', {'for': ['go']}
+Plug 'w0rp/ale', {'for': ['go', 'php']}
 
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 
@@ -718,6 +718,8 @@ let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
+autocmd FileType php setlocal completeopt-=preview
+autocmd FileType php let g:ycm_add_preview_to_completeopt = 0
 let g:p_auto_indent_filetype = ['vim', 'typescript', 'jsx']
 autocmd BufWrite *
             \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
@@ -801,3 +803,6 @@ func JumpBackOnJsx()
 endfunc
 
 let g:phpfmt_standard = 'PSR2'
+
+autocmd FileType php inoremap <leader>4 $
+autocmd FileType php inoremap <leader>- ->

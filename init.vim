@@ -72,6 +72,7 @@ Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
+Plug 'w0rp/ale',{'for': ['go']}
 Plug 'w0rp/ale',{'for': ['php', 'go']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
@@ -480,6 +481,7 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#max_list = 10
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
@@ -497,7 +499,7 @@ let g:echodoc_enable_at_startup = 1
 
 autocmd FileType go :call deoplete#custom#set('deoplete_go', 'rank', 9999)
 autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
-"autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
+autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
 "autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
 call deoplete#custom#set('_', 'sorters', ['sorter_rank'])
 
@@ -797,3 +799,6 @@ endfunc
 
 " }
 
+
+autocmd FileType php inoremap <leader>4 $
+autocmd FileType php inoremap <leader>- ->
