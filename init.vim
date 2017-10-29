@@ -72,7 +72,7 @@ Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
-Plug 'w0rp/ale',{'for': ['go']}
+"Plug 'w0rp/ale',{'for': ['go']}
 Plug 'w0rp/ale',{'for': ['php', 'go']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
@@ -83,7 +83,6 @@ Plug 'honza/vim-snippets'
 Plug 'beyondwords/vim-twig'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
-Plug 'pangloss/vim-javascript'
 Plug 'briancollins/vim-jst'
 Plug 'kchmck/vim-coffee-script'
 Plug 'hail2u/vim-css3-syntax'
@@ -106,7 +105,15 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'mhinz/vim-signify'
 
-Plug 'jelera/vim-javascript-syntax'
+"Plug 'jelera/vim-javascript-syntax'
+Plug 'steelsojka/deoplete-flow', {'for': ['javascript', 'jsx']}
+Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
+Plug 'pangloss/vim-javascript'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'mxw/vim-jsx'
 
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -119,8 +126,9 @@ Plug 'Shougo/echodoc.vim'
 Plug 'vim-scripts/php_localvarcheck.vim'
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'arnaud-lb/vim-php-namespace'
-
-Plug 'mxw/vim-jsx'
+Plug 'beanworks/vim-phpfmt', {'for': 'php'}
+Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
+Plug 'StanAngeloff/php.vim'
 
 Plug 'tpope/vim-abolish'
 
@@ -136,7 +144,6 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'SirVer/ultisnips'
 
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
@@ -149,17 +156,12 @@ Plug 'KabbAmine/zeavim.vim'
 
 Plug 'Shougo/vimshell.vim'
 
-Plug 'StanAngeloff/php.vim'
-
 Plug '2072/PHP-Indenting-for-VIm'
 
 Plug 'itchyny/vim-cursorword'
 
 " { Typescript Plugin
 
-Plug 'steelsojka/deoplete-flow', {'for': ['javascript', 'jsx']}
-
-Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'mhartington/nvim-typescript'
 
@@ -353,7 +355,7 @@ endif
 " Limit linters used for JavaScript.
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
-            \  'go': ['golint', 'gosimple', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
+            \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
             \  'php': ['phpstan', 'php -l', 'phpcs'],
             \}
 
@@ -362,6 +364,7 @@ let g:ale_linters = {
 "\  'php': ['phpstan --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
 let g:ale_php_phpcs_standard = 'Custom'
 let g:ale_php_phpstan_level = '5'
+
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -481,7 +484,7 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#max_list = 10
+"let g:deoplete#max_list = 10
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
@@ -500,7 +503,7 @@ let g:echodoc_enable_at_startup = 1
 autocmd FileType go :call deoplete#custom#set('deoplete_go', 'rank', 9999)
 autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
 autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
-"autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
+autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
 call deoplete#custom#set('_', 'sorters', ['sorter_rank'])
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -690,7 +693,7 @@ let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
 " }
 " { padawan key map
-autocmd FileType php setlocal completeopt+=menu,preview
+autocmd FileType php setlocal completeopt-=menu,preview
 " }
 " { php namespace config
 function! IPhpInsertUse()

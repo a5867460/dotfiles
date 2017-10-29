@@ -56,9 +56,9 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'vim-scripts/matchit.zip'
 Plug 'easymotion/vim-easymotion'
 Plug 'mbbill/undotree'
-Plug 'Yggdroot/indentLine', {'for': ['php', 'javascript', 'jsx']}
-Plug 'myhere/vim-nodejs-complete'
-Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
+Plug 'Yggdroot/indentLine'
+"Plug 'myhere/vim-nodejs-complete'
+"Plug 'scrooloose/syntastic', {'for': ['javascript','jsx']}
 "Plug 'scrooloose/syntastic', {'for': ['php', 'javascript','jsx']}
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/gist-vim'
@@ -70,8 +70,6 @@ Plug 'arnaud-lb/vim-php-namespace'
 Plug 'beyondwords/vim-twig'
 Plug 'elzr/vim-json'
 Plug 'groenewege/vim-less'
-Plug 'pangloss/vim-javascript'
-Plug 'briancollins/vim-jst'
 Plug 'kchmck/vim-coffee-script'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
@@ -92,13 +90,24 @@ Plug 'osyo-manga/vim-over'
 
 Plug 'mhinz/vim-signify'
 
+Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
+Plug 'flowtype/vim-flow', {'for': ['javascript', 'jsx'], 'do': 'npm install -g flow-bin'}
 "Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
+Plug 'mxw/vim-jsx'
+"Plug 'neoclide/vim-jsx-improve'
+Plug 'maksimr/vim-jsbeautify'
 
 Plug 'lvht/phpcd.vim', {'do': 'composer install'}
 Plug 'vim-scripts/php_localvarcheck.vim'
 Plug 'beanworks/vim-phpfmt', {'for': 'php'}
+Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
+Plug 'rafi/vim-phpspec', {'for': 'php'}
+Plug 'StanAngeloff/php.vim'
 
-Plug 'mxw/vim-jsx'
 
 Plug 'tpope/vim-abolish'
 
@@ -116,8 +125,6 @@ Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
 
 Plug 'SirVer/ultisnips'
 
-Plug 'ternjs/tern_for_vim', {'for':'javascript','do': 'npm install'}
-
 "Plug 'w0rp/ale', {'for': ['go']}
 Plug 'w0rp/ale', {'for': ['go', 'php']}
 
@@ -131,7 +138,6 @@ Plug 'KabbAmine/zeavim.vim'
 
 Plug 'Shougo/vimshell.vim'
 
-Plug 'StanAngeloff/php.vim'
 
 Plug '2072/PHP-Indenting-for-VIm'
 
@@ -144,7 +150,6 @@ Plug 'Quramy/tsuquyomi',{'for':'typescript'}
 
 Plug 'jason0x43/vim-js-indent'
 
-Plug 'flowtype/vim-flow', {'for': 'javascript', 'do': 'npm install -g flow-bin'}
 
 "Plug 'Shougo/echodoc.vim'
 
@@ -426,6 +431,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_identifiers_with_syntax = 1
 "let g:ycm_global_ycm_extra_conf = $HOME . '/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_complete_in_comments = 1
 
 " remap Ultisnips for compatibility for YCM
 let g:UltiSnipsExpandTrigger = '<C-k>'
@@ -631,9 +637,14 @@ let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
 " }
+
 " { padawan key map
 autocmd Filetype c,cpp,php inoremap <C-o> <C-x><C-o>
+let g:phpfmt_standard = 'PSR2'
+autocmd FileType php inoremap <leader>4 $
+autocmd FileType php inoremap <leader>- ->
 " }
+
 " { php namespace config
 let g:php_namespace_sort_after_insert = 1
 function! IPhpInsertUse()
@@ -661,15 +672,16 @@ autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
 autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
 autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
 nnoremap <script> <silent> <F7> :call ToggleLocationList()<CR>
-let g:flow#autoclose = 1
+"let g:flow#autoclose = 1
 let g:syntastic_auto_loc_list = 1
 " Asynchronous Lint Engine (ALE)
 " Limit linters used for JavaScript.
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
-            \  'go': ['golint',  'go build', 'errcheck', 'staticcheck', 'go vet', 'gosimple', 'gofmt -e'],
+            \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
             \  'php': ['phpstan', 'phpcs', 'php -l'],
             \}
+"\  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'staticcheck', 'govet'],
 "\  'php': ['phpstan analyse --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
 let g:ale_php_phpcs_standard = 'Custom'
 let g:ale_php_phpstan_level = '5'
@@ -802,7 +814,3 @@ func JumpBackOnJsx()
     endif
 endfunc
 
-let g:phpfmt_standard = 'PSR2'
-
-autocmd FileType php inoremap <leader>4 $
-autocmd FileType php inoremap <leader>- ->
