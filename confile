@@ -1,0 +1,10 @@
+sudo apt-get remove vim  
+sudo apt-get remove vim-runtime  
+sudo apt-get remove gvim  
+sudo apt-get remove vim-tiny  
+sudo apt-get remove vim-common  
+sudo apt-get remove vim-gui-common
+sudo apt-get install xorg-dev  
+sudo apt-get install libgtk2.0-dev
+
+./configure  --with-features=huge \--enable-pythoninterp=yes \--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \--enable-luainterp=yes \--with-lua-prefix=/usr \--enable-rubyinterp=yes \--enable-perlinterp=yes \--enable-cscope \--enable-multibyte \--disable-selinux \--with-x
