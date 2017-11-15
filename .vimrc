@@ -642,6 +642,7 @@ autocmd FileType vue setlocal filetype=javascript
 autocmd Filetype c,cpp,php inoremap <C-o> <C-x><C-o>
 let g:phpfmt_standard = 'PSR2'
 autocmd FileType php inoremap <leader>4 $
+autocmd FileType php inoremap <leader>1 !
 autocmd FileType php inoremap <leader>- ->
 " }
 

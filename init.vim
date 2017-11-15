@@ -106,14 +106,14 @@ Plug 'osyo-manga/vim-over'
 Plug 'mhinz/vim-signify'
 
 "Plug 'jelera/vim-javascript-syntax'
-Plug 'steelsojka/deoplete-flow', {'for': ['javascript', 'jsx']}
-Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
-Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
+
+Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -248,6 +248,7 @@ nnoremap k kzz
 nnoremap <F9> :TagbarToggle<CR>
 nnoremap <leader>; <esc>$a;<esc>
 nnoremap <C-h> :OverCommandLine<CR>
+nnoremap <leader>g :call Gentags()<cr>
 
 vnoremap < <gv
 vnoremap > >gv
@@ -485,12 +486,16 @@ let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
 "let g:deoplete#max_list = 10
+let g:deoplete#auto_complete_start_length = 1
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 let g:deoplete#ignore_sources.go = ['around']
 
 "let g:nvim_typescript#max_completion_detail = 100
+
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.jsx = '[^. *\t]\.\w*'
 
 let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:deoplete#sources#tss#javascript_support = 1
@@ -691,10 +696,17 @@ endfunc
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 1
 autocmd FileType vue setlocal filetype=javascript
+autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
+autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
+autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
 " }
 " { padawan key map
 autocmd FileType php setlocal completeopt-=menu,preview
+autocmd FileType php inoremap <leader>4 $
+autocmd FileType php inoremap <leader>1 !
+autocmd FileType php inoremap <leader>- ->
 " }
+
 " { php namespace config
 function! IPhpInsertUse()
     call PhpInsertUse()
@@ -751,7 +763,7 @@ let g:formatters_php = ['phpcbf']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
-let g:p_auto_indent_filetype = ['vim', 'typescript']
+let g:p_auto_indent_filetype = ['vim']
 autocmd BufWrite *
             \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
             \ :Autoformat |
@@ -789,19 +801,26 @@ func Gentags()
     call vimproc#system("ctags -R --fields=+aimlS --languages=php", "", 10000)
 endfunc
 
-func UpdateGitSubModule()
-    exec "!git submodule update --init --recursive"
-endfunc
-
-func InitPHPProj()
-    call UpdateGitSubModule()
-    call Gentags()
-    exec "!curl -sS https://raw.githubusercontent.com/a5867460/vimset/master/composer.json > ./composer.json"
-    exec "!composer install"
-endfunc
-
 " }
 
+let g:jump_stack = 0
 
-autocmd FileType php inoremap <leader>4 $
-autocmd FileType php inoremap <leader>- ->
+func JumpToDefOnJsx()
+    let lastPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
+    :FlowJumpToDef
+    let currentPos = fnameescape(expand('%')).' '.line('.').' '.col('.')
+    if lastPos != currentPos
+        let g:jump_stack += 1
+    endif
+    echo g:jump_stack
+endfunc
+
+func JumpBackOnJsx()
+    if g:jump_stack > 0
+        let g:jump_stack -= 1
+        execute "normal \<C-o>"
+        echo g:jump_stack
+    else
+        echo '无回退位置'
+    endif
+endfunc
