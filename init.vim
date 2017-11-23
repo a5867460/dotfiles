@@ -75,6 +75,7 @@ Plug 'myhere/vim-nodejs-complete'
 "Plug 'w0rp/ale',{'for': ['go']}
 Plug 'w0rp/ale',{'for': ['php', 'go']}
 Plug 'tpope/vim-fugitive'
+Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'luochen1990/rainbow'
@@ -129,6 +130,7 @@ Plug 'arnaud-lb/vim-php-namespace'
 Plug 'beanworks/vim-phpfmt', {'for': 'php'}
 Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
 Plug 'StanAngeloff/php.vim'
+Plug 'adoy/vim-php-refactoring-toolbox'
 
 Plug 'tpope/vim-abolish'
 
@@ -177,6 +179,12 @@ Plug 'Shougo/deol.nvim'
 Plug 'tpope/vim-endwise'
 
 Plug 'ianva/vim-youdao-translater'
+
+Plug 'mbbill/fencview'
+
+Plug 'ludovicchabant/vim-gutentags',{'for': ['php']}
+
+Plug 'mfulz/cscope.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'a5867460/vim-correction'
 
@@ -547,37 +555,56 @@ endif
 " }
 
 
+"{ cscope.nvim
+" Path to store the cscope files (cscope.files and cscope.out)
+" Defaults to '~/.cscope'
+"let g:cscope_dir = '~/.nvim-cscope'
+
+" Map the default keys on startup
+" These keys are prefixed by CTRL+\ <cscope param>
+" A.e.: CTRL+\ d for goto definition of word under cursor
+" Defaults to off
+let g:cscope_map_keys = 1
+
+" Update the cscope files on startup of cscope.
+" Defaults to off
+let g:cscope_update_on_start = 1
+
+nnoremap <leader>css :CScopeStart<cr>
+nnoremap <leader>csu :CScopeUpdate<cr>
+
+"}
 
 
 
 "  < cscope 工具配置 >
 " -----------------------------------------------------------------------------
 " 用Cscope自己的话说 - "你可以把它当做是超过频的ctags"
-if has("cscope")
-    "设定可以使用 quickfix 窗口来查看 cscope 结果
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-    "使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳转
-    set cscopetag
-    "如果你想反向搜索顺序设置为1
-    set csto=0
-    "在当前目录中添加任何数据库
-    if filereadable("cscope.out")
-        cs add cscope.out
-        "否则添加数据库环境中所指出的
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-    set cscopeverbose
-    "快捷键设置
-    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-endif
+"if has("cscope")
+""设定可以使用 quickfix 窗口来查看 cscope 结果
+"set cscopequickfix=s-,c-,d-,i-,t-,e-
+""使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间跳转
+"set cscopetag
+""如果你想反向搜索顺序设置为1
+"set csto=0
+""在当前目录中添加任何数据库
+"if filereadable("cscope.out")
+"cs add cscope.out
+""否则添加数据库环境中所指出的
+"elseif $CSCOPE_DB != ""
+"cs add $CSCOPE_DB
+"endif
+"set cscopeverbose
+""快捷键设置
+"nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"endif
 
 
 let g:rainbow_active = 1
@@ -705,6 +732,22 @@ autocmd FileType php setlocal completeopt-=menu,preview
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php inoremap <leader>1 !
 autocmd FileType php inoremap <leader>- ->
+" }
+" {php_refactoring_tools
+let g:vim_php_refactoring_use_default_mapping = 0
+nnoremap <unique> <Leader>rlv :call PhpRenameLocalVariable()<CR>
+nnoremap <unique> <Leader>rcv :call PhpRenameClassVariable()<CR>
+nnoremap <unique> <Leader>rm :call PhpRenameMethod()<CR>
+nnoremap <unique> <Leader>eu :call PhpExtractUse()<CR>
+vnoremap <unique> <Leader>ec :call PhpExtractConst()<CR>
+nnoremap <unique> <Leader>ep :call PhpExtractClassProperty()<CR>
+vnoremap <unique> <Leader>em :call PhpExtractMethod()<CR>
+nnoremap <unique> <Leader>np :call PhpCreateProperty()<CR>
+nnoremap <unique> <Leader>du :call PhpDetectUnusedUseStatements()<CR>
+vnoremap <unique> <Leader>== :call PhpAlignAssigns()<CR>
+nnoremap <unique> <Leader>gsg :call PhpCreateSettersAndGetters()<CR>
+nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
+nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
 " }
 
 " { php namespace config
