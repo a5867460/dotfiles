@@ -73,7 +73,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
 "Plug 'w0rp/ale',{'for': ['go']}
-Plug 'w0rp/ale',{'for': ['php', 'go']}
+Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
@@ -149,6 +149,7 @@ Plug 'SirVer/ultisnips'
 
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp'], 'do': 'make'}
 
 Plug 'posva/vim-vue'
 
@@ -173,7 +174,10 @@ Plug 'Quramy/tsuquyomi'
 Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'jason0x43/vim-js-indent'
-"" }
+
+Plug 'WolfgangMehner/perl-support'
+Plug 'c9s/perlomni.vim'
+
 Plug 'Shougo/deol.nvim'
 
 Plug 'tpope/vim-endwise'
@@ -182,9 +186,9 @@ Plug 'ianva/vim-youdao-translater'
 
 Plug 'mbbill/fencview'
 
-Plug 'ludovicchabant/vim-gutentags',{'for': ['php']}
+Plug 'ludovicchabant/vim-gutentags',{'for': ['php', 'c', 'cpp']}
 
-Plug 'mfulz/cscope.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mfulz/cscope.nvim', {'for': ['php', 'c', 'cpp'], 'do': ':UpdateRemotePlugins' }
 
 Plug 'a5867460/vim-correction'
 
@@ -366,6 +370,8 @@ let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
             \  'php': ['phpstan', 'php -l', 'phpcs'],
+            \  'c': ['clang', 'gcc', 'cppcheck'],
+            \  'cpp': ['clang', 'gcc', 'cppcheck'],
             \}
 
 "\  'javascript': ['flow'],
@@ -510,6 +516,10 @@ let g:deoplete#sources#tss#javascript_support = 1
 "let g:tsuquyomi_javascript_support = 1
 "let g:tsuquyomi_auto_open = 1
 
+" path to directory where library can be found
+let g:clang_library_path='/usr/lib/llvm-4.0/lib'
+" or path directly to the library file
+let g:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so.1'
 
 let g:echodoc_enable_at_startup = 1
 
@@ -803,6 +813,7 @@ noremap <F3> :Autoformat<cr>
 " { auto-indent
 let g:formatdef_phpcbf = '"phpcbf --standard=Custom"'
 let g:formatters_php = ['phpcbf']
+let g:formatters_perl = ['perltidy']
 autocmd FileType php let b:autoformat_autoindent=1
 autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
