@@ -118,6 +118,7 @@ Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
 "Plug 'roxma/nvim-completion-manager'
 "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
@@ -188,7 +189,7 @@ Plug 'mbbill/fencview'
 
 Plug 'ludovicchabant/vim-gutentags',{'for': ['php', 'c', 'cpp']}
 
-Plug 'mfulz/cscope.nvim', {'for': ['php', 'c', 'cpp'], 'do': ':UpdateRemotePlugins' }
+Plug 'mfulz/cscope.nvim', {'do': ':UpdateRemotePlugins' }
 
 Plug 'a5867460/vim-correction'
 
@@ -499,8 +500,8 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#auto_complete_start_length = 2
 "let g:deoplete#max_list = 10
-let g:deoplete#auto_complete_start_length = 1
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
@@ -695,7 +696,7 @@ nnoremap <Leader>a :Ack!<Space>
 " C compile{
 
 nnoremap <F5> :make<CR>
-"nnoremap <F8> :call Debug()<CR>
+nnoremap <F8> :call Debug()<CR>
 "定义CompileRun函数，用来对不用外接库的小程序进行编译和运行,自己可以根据文件名扩展或实际情况修改参数
 func CompileRun()
     exec "w"
@@ -740,8 +741,6 @@ autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
 " { padawan key map
 autocmd FileType php setlocal completeopt-=menu,preview
 autocmd FileType php inoremap <leader>4 $
-autocmd FileType php inoremap <leader>1 !
-autocmd FileType php inoremap <leader>- ->
 " }
 " {php_refactoring_tools
 let g:vim_php_refactoring_use_default_mapping = 0
