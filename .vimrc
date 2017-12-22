@@ -126,7 +126,7 @@ Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
 Plug 'SirVer/ultisnips'
 
 "Plug 'w0rp/ale', {'for': ['go']}
-Plug 'w0rp/ale', {'for': ['go', 'php']}
+Plug 'w0rp/ale', {'for': ['go', 'php', 'c', 'cpp']}
 
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 
@@ -161,6 +161,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'milkypostman/vim-togglelist'
+
+Plug 'ludovicchabant/vim-gutentags',{'for': ['php', 'c', 'cpp']}
+
+Plug 'WolfgangMehner/perl-support'
+
+Plug 'c9s/perlomni.vim'
 
 Plug 'vim-perl/vim-perl', {'for':'perl','do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny'}
 
@@ -733,6 +739,7 @@ autocmd FileType php let b:autoformat_retab=1
 autocmd FileType php let b:autoformat_remove_trailing_spaces=1
 autocmd FileType php setlocal completeopt-=preview
 autocmd FileType php let g:ycm_add_preview_to_completeopt = 0
+let g:formatters_perl = ['perltidy']
 let g:p_auto_indent_filetype = ['vim', 'typescript', 'jsx']
 autocmd BufWrite *
             \ if index(g:p_auto_indent_filetype, &filetype) >= 0 |
