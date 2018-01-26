@@ -140,6 +140,8 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'godlygeek/tabular'
 
 Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
 
 Plug 'mileszs/ack.vim'
 
@@ -828,6 +830,13 @@ nnoremap <silent> <leader>t :<C-u>Ydc<CR>
 "}
 
 let g:OmniSharp_server_type = 'roslyn'
+
+"{ mark down preivw
+nmap <silent> <F7> <Plug>MarkdownPreview        " 普通模式
+imap <silent> <F7> <Plug>MarkdownPreview        " 插入模式
+nmap <silent> <F8> <Plug>StopMarkdownPreview    " 普通模式
+imap <silent> <F8> <Plug>StopMarkdownPreview    " 插入模式
+"}
 
 
 " {
