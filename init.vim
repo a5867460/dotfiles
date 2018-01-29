@@ -193,6 +193,8 @@ Plug 'ludovicchabant/vim-gutentags',{'for': ['php', 'c', 'cpp']}
 
 Plug 'mfulz/cscope.nvim', {'do': ':UpdateRemotePlugins' }
 
+Plug 'chase/vim-ansible-yaml'
+
 Plug 'a5867460/vim-correction'
 
 
