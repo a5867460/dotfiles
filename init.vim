@@ -73,7 +73,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
 "Plug 'w0rp/ale',{'for': ['go']}
-Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp']}
+Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
@@ -107,7 +107,7 @@ Plug 'osyo-manga/vim-over'
 Plug 'mhinz/vim-signify'
 
 "Plug 'jelera/vim-javascript-syntax'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
@@ -171,7 +171,7 @@ Plug 'itchyny/vim-cursorword'
 
 Plug 'mhartington/nvim-typescript'
 
-Plug 'Quramy/tsuquyomi'
+"Plug 'Quramy/tsuquyomi'
 
 "Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
@@ -377,6 +377,7 @@ let g:ale_linters = {
             \  'php': ['phpstan', 'php -l', 'phpcs'],
             \  'c': ['clang', 'gcc', 'cppcheck'],
             \  'cpp': ['clang', 'gcc', 'cppcheck'],
+            \  'typescript': ['tsserver', 'tslint'],
             \}
 
 "\  'javascript': ['flow'],
@@ -515,6 +516,7 @@ let g:deoplete#ignore_sources.go = ['around']
 
 let g:deoplete#omni_patterns = {}
 let g:deoplete#omni_patterns.jsx = '[^. *\t]\.\w*'
+let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
 
 let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:deoplete#sources#tss#javascript_support = 1
@@ -529,7 +531,7 @@ let g:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so.1'
 let g:echodoc_enable_at_startup = 1
 
 autocmd FileType go :call deoplete#custom#set('deoplete_go', 'rank', 9999)
-autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
+"autocmd FileType typescript :call deoplete#custom#set('omni', 'rank', 9999)
 autocmd FileType php :call deoplete#custom#set('phpcd', 'rank', 10010)
 autocmd FileType javascript,jsx :call deoplete#custom#set('flow_bin', 'rank', 10010)
 call deoplete#custom#set('_', 'sorters', ['sorter_rank'])
@@ -548,7 +550,7 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-autocmd FileType javascript,jsx,coffee,vue setlocal omnifunc=tern#Complete
+"autocmd FileType javascript,jsx,coffee setlocal omnifunc=tern#Complete
 autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 
 
@@ -621,7 +623,6 @@ nnoremap <leader>csu :CScopeUpdate<cr>
 "nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 "endif
 
-
 let g:rainbow_active = 1
 let g:rainbow_conf = {
             \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
@@ -685,6 +686,9 @@ au FileType go nnoremap <leader>ima :GoImportAs<Space>
 au FileType go inoremap <leader>im :GoImport<Space>
 au FileType go inoremap <leader>ima :GoImportAs<Space>
 au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nnoremap <leader><leader>r :GoReferrers<cr>
+au FileType go nnoremap <leader><leader>c :GoCallees<cr>
+au FileType go nnoremap <leader><leader>d :GoDoc<cr>
 "au FileType go nnoremap <leader>b <Plug>(go-build)
 "au FileType go nnoremap <leader>t <Plug>(go-test)
 "au FileType go nnoremap <leader>c <Plug>(go-coverage)
@@ -737,7 +741,9 @@ endfunc
 " vim-javascript{
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 1
-autocmd FileType vue setlocal filetype=javascript
+autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+au BufRead,BufNewFile *.wpy setlocal filetype=vue.html.javascript.css
 autocmd FileType javascript.jsx nnoremap <Leader>e :FlowType<CR>
 autocmd FileType javascript.jsx nnoremap <C-]> :call JumpToDefOnJsx()<cr>
 autocmd FileType javascript.jsx nnoremap <C-t> :call JumpBackOnJsx()<cr>
