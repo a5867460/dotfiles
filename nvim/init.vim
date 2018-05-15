@@ -687,5 +687,5 @@ let g:Lf_DefaultMode = 'FullPath'
 
 
 execute 'source' expand('~/.config/nvim') . '/echodoc.vim'
-"execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
-execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
+execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
+"execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'

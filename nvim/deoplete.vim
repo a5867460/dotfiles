@@ -1,8 +1,8 @@
 " youcompleteme{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
+"let g:deoplete#enable_smart_case = 1
+"let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#auto_complete_start_length = 2
@@ -55,7 +55,13 @@ autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 " Disable the neosnippet preview candidate window
 " When enabled, there can be too much visual noise
 " especially when splits are used.
-"set completeopt+=preview
+set completeopt-=preview
 set completeopt+=longest
 set completeopt+=noinsert,noselect
+call deoplete#custom#option({
+            \ 'smart_case': v:true,
+            \ 'camel_case': v:true,
+            \ 'ignore_case': v:true,
+            \ 'matchers': ['matcher_full_fuzzy'],
+            \ })
 "}

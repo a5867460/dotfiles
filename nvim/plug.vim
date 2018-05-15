@@ -62,12 +62,12 @@ Plug 'mxw/vim-jsx'
 Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'Shougo/denite.nvim'
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
 "Plug 'roxma/nvim-completion-manager'
 "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
+"Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
 
 Plug 'Shougo/echodoc.vim'
 
@@ -97,7 +97,7 @@ Plug 'SirVer/ultisnips'
 
 
 Plug 'fatih/vim-go'
-"Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp'], 'do': 'make'}
 
 Plug 'posva/vim-vue'
@@ -144,6 +144,8 @@ Plug 'chase/vim-ansible-yaml'
 Plug 'terryma/vim-multiple-cursors'
 
 Plug 'a5867460/vim-correction'
+
+Plug 'Shougo/neopairs.vim'
 
 "Plug 'OrangeT/vim-csharp'
 
