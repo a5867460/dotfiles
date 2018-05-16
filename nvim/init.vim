@@ -225,7 +225,7 @@ endif
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
-            \  'php': ['phpstan', 'php -l', 'phpcs'],
+            \  'php': ['phan', 'phpstan', 'php -l', 'phpcs'],
             \  'c': ['clang', 'gcc', 'cppcheck'],
             \  'cpp': ['clang', 'gcc', 'cppcheck'],
             \  'typescript': ['tsserver', 'tslint'],
@@ -236,6 +236,7 @@ let g:ale_linters = {
 "\  'php': ['phpstan --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
 let g:ale_php_phpcs_standard = 'Custom'
 let g:ale_php_phpstan_level = '7'
+let g:ale_php_phan_use_client = 1
 
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)

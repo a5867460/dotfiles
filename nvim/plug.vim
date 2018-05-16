@@ -18,7 +18,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
 "Plug 'w0rp/ale',{'for': ['go']}
-Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
+"Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
+Plug 'haginaga/ale',{'branch': 'support_phan_client', 'for': ['php', 'go', 'c', 'cpp', 'typescript']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
@@ -78,6 +79,7 @@ Plug 'beanworks/vim-phpfmt', {'for': 'php'}
 Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
 Plug 'StanAngeloff/php.vim'
 Plug 'adoy/vim-php-refactoring-toolbox'
+"Plug 'lvht/phpfold.vim', { 'for': 'php' }
 
 Plug 'tpope/vim-abolish'
 
