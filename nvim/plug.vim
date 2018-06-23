@@ -18,13 +18,12 @@ Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
 "Plug 'w0rp/ale',{'for': ['go']}
-"Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
-Plug 'haginaga/ale',{'branch': 'support_phan_client', 'for': ['php', 'go', 'c', 'cpp', 'typescript']}
+Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'luochen1990/rainbow'
+"Plug 'luochen1990/rainbow'
 Plug 'majutsushi/tagbar'
 Plug 'honza/vim-snippets'
 Plug 'beyondwords/vim-twig'
