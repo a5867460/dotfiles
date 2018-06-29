@@ -62,12 +62,12 @@ Plug 'mxw/vim-jsx'
 Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 "Plug 'roxma/nvim-completion-manager'
 "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
 
 Plug 'Shougo/echodoc.vim'
 
