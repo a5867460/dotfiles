@@ -99,7 +99,7 @@ Plug 'SirVer/ultisnips'
 
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp'], 'do': 'make'}
+"Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp'], 'do': 'make'}
 
 Plug 'posva/vim-vue'
 
