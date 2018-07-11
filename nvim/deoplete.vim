@@ -28,7 +28,7 @@ let g:clang_library_path='/usr/lib/llvm-4.0/lib'
 " or path directly to the library file
 let g:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so.1'
 
-autocmd FileType go :call deoplete#custom#source('deoplete_go', 'rank', 9999)
+"autocmd FileType go :call deoplete#custom#source('deoplete_go', 'rank', 9999)
 "autocmd FileType typescript :call deoplete#custom#source('omni', 'rank', 9999)
 autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 10010)
 autocmd FileType javascript,jsx :call deoplete#custom#source('flow_bin', 'rank', 10010)
@@ -58,6 +58,7 @@ autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
 set completeopt-=preview
 set completeopt+=longest
 set completeopt+=noinsert,noselect
+
 call deoplete#custom#option({
             \ 'smart_case': v:true,
             \ 'camel_case': v:true,
@@ -66,3 +67,8 @@ call deoplete#custom#option({
             \ 'matchers': ['matcher_full_fuzzy'],
             \ })
 "}
+
+" { deoplete-go
+let g:deoplete#sources#go#pointer = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" }
