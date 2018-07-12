@@ -121,6 +121,8 @@ nnoremap <C-h> :OverCommandLine<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+inoremap jj <esc>
+
 
 set history=500
 set undolevels=10000
