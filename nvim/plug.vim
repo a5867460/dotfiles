@@ -62,8 +62,8 @@ Plug 'mxw/vim-jsx'
 Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
 
 Plug 'Shougo/denite.nvim'
-Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 "Plug 'roxma/nvim-completion-manager'
 "Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
@@ -147,6 +147,10 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'a5867460/vim-correction'
 
 Plug 'Shougo/neopairs.vim'
+
+Plug 'ajh17/spacegray.vim'
+
+Plug 'junegunn/limelight.vim'
 
 "Plug 'OrangeT/vim-csharp'
 

@@ -484,7 +484,7 @@ let g:go_gocode_autobuild = 1
 let g:go_gocode_unimported_packages = 1
 
 let g:go_autodetect_gopath = 1
-" let g:go_info_mode = "guru"
+let g:go_info_mode = "guru"
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_highlight_space_tab_error = 0
 let g:go_highlight_array_whitespace_error = 0
@@ -766,7 +766,34 @@ let g:Lf_DefaultMode = 'FullPath'
 
 
 
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+let g:php_sql_query = 0
+let g:php_sql_heredoc = 0
+let g:php_sql_nowdoc = 0
 
 execute 'source' expand('~/.config/nvim') . '/echodoc.vim'
-"execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
-execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
+execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
+"execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
