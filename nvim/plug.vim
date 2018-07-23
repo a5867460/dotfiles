@@ -152,6 +152,8 @@ Plug 'ajh17/spacegray.vim'
 
 Plug 'junegunn/limelight.vim'
 
+Plug 'roman/golden-ratio'
+
 "Plug 'OrangeT/vim-csharp'
 
 "Plug 'OmniSharp/omnisharp-vim'
