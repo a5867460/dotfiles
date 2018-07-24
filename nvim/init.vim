@@ -797,3 +797,35 @@ let g:php_sql_nowdoc = 0
 execute 'source' expand('~/.config/nvim') . '/echodoc.vim'
 execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
 "execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
+
+au VimEnter * call StartPhan()
+
+func StartPhan()
+    if filereadable('./.phan/.phan_config')
+        let list = readfile('./.phan/.phan_config', '', 10)
+        let port = 4890
+        for line in list
+            if line =~ '^port.*;$'
+                let t = split(line, '=')
+                let port = substitute(t[1], ';', '', 'g')
+            endif
+        endfor
+        call jobstart([ 'phan', '--daemonize-tcp-port', port,
+                    \ '--quick'],
+                    \ {'on_stdout': function('s:PhanStartError')})
+    endif
+endfunc
+
+func s:PhanStartError(a, b, c)
+    let msg = join(a:b, "\n")
+    if msg =~# '^PHP Parse' && len(a:b) > 1
+        let msg = a:b[1]
+    endif
+    call map(split(substitute(msg, escape(getcwd() . '/', '.'), '', 'g'), "\n"), function('s:Phanwarn'))
+endfunc
+
+function! s:Phanwarn(k, v) abort
+    echohl WarningMsg
+    echom a:v
+    echohl None
+endfunction
