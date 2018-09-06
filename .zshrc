@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump cp web-search catimg extract tmux npm ubuntu command-not-found common-aliases thefuck)
+plugins=(git autojump cp web-search catimg extract tmux npm ubuntu command-not-found common-aliases tmuxinator laravel5 docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,3 +102,5 @@ export PATH=$PATH:/usr/local/go/bin:~/godir/bin/
 export PATH=$PATH:~/.config/composer/vendor/bin:~/tools/phplint-3.0_20160307/:/usr/local/mongo/bin/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
