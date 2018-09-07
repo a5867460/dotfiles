@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump cp web-search catimg extract tmux npm ubuntu command-not-found common-aliases tmuxinator laravel5 docker docker-compose)
+plugins=(git autojump cp web-search catimg extract tmux npm ubuntu command-not-found common-aliases tmuxinator laravel5 docker docker-compose yarn)
 
 source $ZSH/oh-my-zsh.sh
 
