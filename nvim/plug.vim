@@ -116,7 +116,7 @@ Plug 'itchyny/vim-cursorword'
 " { Typescript Plugin
 
 
-Plug 'mhartington/nvim-typescript'
+Plug 'mhartington/nvim-typescript', {'do': 'sh install.sh'}
 
 "Plug 'Quramy/tsuquyomi'
 
