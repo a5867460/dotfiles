@@ -231,6 +231,7 @@ let g:ale_linters = {
             \  'c': ['clang', 'gcc', 'cppcheck'],
             \  'cpp': ['clang', 'gcc', 'cppcheck'],
             \  'typescript': ['tsserver', 'tslint'],
+            \  'typescript.tsx': ['tsserver', 'tslint'],
             \}
 
 "\  'javascript': ['flow'],
@@ -680,8 +681,9 @@ noremap <F3> :Autoformat<cr>
 " { Typescript config
 "let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
 "let g:nvim_typescript#javascript_support = 100
-let g:nvim_typescript#type_info_on_hold = 1
-autocmd FileType typescript nnoremap <leader><leader>l :TSImport<CR>
+"let g:nvim_typescript#type_info_on_hold = 1
+"let g:nvim_typescript#diagnosticsEnable=0
+autocmd FileType typescript,typescript.tsx nnoremap <leader><leader>l :TSImport<CR>
 " }
 
 " { auto-indent
@@ -829,3 +831,4 @@ function! s:Phanwarn(k, v) abort
     echom a:v
     echohl None
 endfunction
+

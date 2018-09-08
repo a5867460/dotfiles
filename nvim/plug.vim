@@ -17,8 +17,7 @@ Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
-"Plug 'w0rp/ale',{'for': ['go']}
-Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript']}
+Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript', 'typescript.tsx']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
