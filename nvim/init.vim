@@ -683,6 +683,7 @@ noremap <F3> :Autoformat<cr>
 "let g:nvim_typescript#javascript_support = 100
 "let g:nvim_typescript#type_info_on_hold = 1
 "let g:nvim_typescript#diagnosticsEnable=0
+let g:nvim_typescript#default_mappings=1
 autocmd FileType typescript,typescript.tsx nnoremap <leader><leader>l :TSImport<CR>
 " }
 
