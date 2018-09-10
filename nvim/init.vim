@@ -227,13 +227,14 @@ endif
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
-            \  'php': ['phan', 'phpstan', 'php -l', 'phpcs'],
+            \  'php': ['phan', 'php -l', 'phpcs'],
             \  'c': ['clang', 'gcc', 'cppcheck'],
             \  'cpp': ['clang', 'gcc', 'cppcheck'],
             \  'typescript': ['tsserver', 'tslint'],
             \  'typescript.tsx': ['tsserver', 'tslint'],
             \}
 
+"\  'php': ['phan', 'phpstan', 'php -l', 'phpcs'],
 "\  'javascript': ['flow'],
 "\  'jsx': ['flow'],
 "\  'php': ['phpstan --level=5 ', 'php -l', 'phpcs --standard=Custom', 'phpmd /home/yz/tools/phpmd-rulesets/phpmd_ruleset.xml'],
