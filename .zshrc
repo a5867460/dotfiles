@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Alias Start
-alias sshdev='ssh -l www-data yz.dev.neoteched.com'
+alias sshdev='ssh  www-data:123@yz.dev.neoteched.com'
 alias sshtest='ssh -l root 192.168.2.26'
 alias cls='clear'
 # Alias End
