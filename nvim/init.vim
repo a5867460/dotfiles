@@ -805,7 +805,7 @@ execute 'source' expand('~/.config/nvim') . '/echodoc.vim'
 execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
 "execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
 
-"au VimEnter * call StartPhan()
+au VimEnter * call StartPhan()
 
 func StartPhan()
     if filereadable('./.phan/.phan_config')

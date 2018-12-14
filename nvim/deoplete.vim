@@ -67,6 +67,7 @@ call deoplete#custom#option({
             \ 'camel_case': v:true,
             \ 'refresh_always': v:true,
             \ })
+"\ 'refresh_always': v:true,
 "}
 " { deoplete-go
 let g:deoplete#sources#go#pointer = 1

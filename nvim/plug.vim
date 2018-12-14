@@ -76,7 +76,14 @@ Plug 'TysonAndre/LanguageServer-phan-neovim',  {'do': 'composer update'}
 Plug 'Shougo/echodoc.vim'
 
 Plug 'vim-scripts/php_localvarcheck.vim'
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" (Optional) Multi-entry selection UI.
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'beanworks/vim-phpfmt', {'for': 'php'}
 Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
