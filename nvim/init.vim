@@ -87,7 +87,7 @@ set t_Co=256
 colorscheme gruvbox
 set background=dark
 set cursorline                  " Highlight current line
-set cursorcolumn                  " Highlight current line
+"set cursorcolumn                  " Highlight current line
 set shiftwidth=4
 set softtabstop=4
 set expandtab

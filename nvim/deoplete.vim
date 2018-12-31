@@ -6,7 +6,8 @@ let g:deoplete#enable_camel_case = 1
 "let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#auto_complete_start_length = 1
-"let g:deoplete#max_list = 10
+let g:deoplete#max_list = 50
+"let deoplete-options-max_list = 100
 
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
