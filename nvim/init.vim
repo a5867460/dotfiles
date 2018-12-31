@@ -227,11 +227,13 @@ endif
 let g:ale_emit_conflict_warnings = 0
 let g:ale_linters = {
             \  'go': ['golint', ' gometalinter', 'go build', 'gofmt -e', 'errcheck', 'govet'],
-            \  'php': ['phan', 'php -l', 'phpcs'],
+            \  'php': ['phpstan', 'php -l', 'phpcs'],
             \  'c': ['clang', 'gcc', 'cppcheck'],
             \  'cpp': ['clang', 'gcc', 'cppcheck'],
             \  'typescript': ['tsserver', 'tslint'],
             \  'typescript.tsx': ['tsserver', 'tslint'],
+            \  'javascript': ['flow'],
+            \  'javascript.jsx': ['flow'],
             \}
 
 "\  'php': ['phan', 'phpstan', 'php -l', 'phpcs'],
@@ -344,6 +346,7 @@ if isdirectory(expand("~/.nvim/plugged/vim-fugitive/"))
     nnoremap <silent> <leader>gb :Gblame<CR>
     nnoremap <silent> <leader>gl :Glog<CR>
     nnoremap <silent> <leader>gp :Git push<CR>
+    nnoremap <silent> <leader>ga :Git pull --rebase<CR>
     nnoremap <silent> <leader>gr :Gread<CR>
     nnoremap <silent> <leader>gw :Gwrite<CR>
     nnoremap <silent> <leader>ge :Gedit<CR>
@@ -802,7 +805,7 @@ execute 'source' expand('~/.config/nvim') . '/echodoc.vim'
 execute 'source' expand('~/.config/nvim') . '/deoplete.vim'
 "execute 'source' expand('~/.config/nvim') . '/youcompleteme.vim'
 
-au VimEnter * call StartPhan()
+"au VimEnter * call StartPhan()
 
 func StartPhan()
     if filereadable('./.phan/.phan_config')
@@ -815,7 +818,7 @@ func StartPhan()
             endif
         endfor
         call jobstart([ 'phan', '--daemonize-tcp-port', port,
-                    \ '--quick'],
+                    \ ],
                     \ {'on_stdout': function('s:PhanStartError')})
     endif
 endfunc
@@ -834,3 +837,37 @@ function! s:Phanwarn(k, v) abort
     echohl None
 endfunction
 
+
+
+"for language server client
+set hidden
+
+let g:LanguageClient_serverCommands = {
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ 'javascript.jsx': ['javascript-typescript-stdio'],
+            \ }
+
+"\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"\ 'javascript.jsx': ['javascript-typescript-stdio'],
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+let g:phan_analyzed_directory = '/home/yz/workdir/winterfell'
+let g:phan_quick=0
+let g:phan_enable_completion = 1
+
+" Keyboard shortcuts to go to the definition or type definition.
+nnoremap <silent> g1 :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> g2 :call LanguageClient#textDocument_typeDefinition()<CR>
+" By default, this hover command opens the hover description in a preview pane,
+" which can be closed with C-w z or C-w C-z
+nnoremap <silent> g3 :call LanguageClient#textDocument_hover()<CR>
+" These shortcuts (Ctrl-W followed by the string 'g1', etc.)
+" can be used to open the definition in a new pane.
+nnoremap <silent> <C-W>g1 :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
+nnoremap <silent> <C-W>g2 :call LanguageClient#textDocument_typeDefinition({'gotoCmd': 'split'})<CR>
+
+let g:auto_save = 1
+let g:auto_save_events = ["InsertLeave"]

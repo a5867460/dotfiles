@@ -3,7 +3,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
-"let g:deoplete#enable_refresh_always = 0
+"let g:deoplete#enable_refresh_always = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#auto_complete_start_length = 1
 "let g:deoplete#max_list = 10
@@ -18,7 +18,7 @@ let g:deoplete#omni_patterns = {}
 let g:deoplete#omni_patterns.jsx = '[^. *\t]\.\w*'
 let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
 
-let g:deoplete#sources#flow#flow_bin = 'flow'
+"let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:deoplete#sources#tss#javascript_support = 1
 "let g:tsuquyomi_javascript_support = 1
 "let g:tsuquyomi_auto_open = 1
@@ -31,7 +31,7 @@ let g:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so.1'
 "autocmd FileType go :call deoplete#custom#source('deoplete_go', 'rank', 9999)
 "autocmd FileType typescript :call deoplete#custom#source('omni', 'rank', 9999)
 autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 10010)
-autocmd FileType javascript,jsx :call deoplete#custom#source('flow_bin', 'rank', 10010)
+"autocmd FileType javascript,jsx :call deoplete#custom#source('flow_bin', 'rank', 10010)
 call deoplete#custom#source('_', 'sorters', ['sorter_rank'])
 call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 
@@ -64,8 +64,8 @@ call deoplete#custom#option({
             \ 'ignore_case': v:true,
             \ 'smart_case': v:true,
             \ 'camel_case': v:true,
+            \ 'refresh_always': v:true,
             \ })
-"\ 'refresh_always': v:true,
 "}
 " { deoplete-go
 let g:deoplete#sources#go#pointer = 1

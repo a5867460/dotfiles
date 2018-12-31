@@ -17,7 +17,7 @@ Plug 'mbbill/undotree'
 Plug 'Yggdroot/indentLine'
 Plug 'myhere/vim-nodejs-complete'
 "Plug 'scrooloose/syntastic',{'for': ['php']}
-Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript', 'typescript.tsx']}
+Plug 'w0rp/ale',{'for': ['php', 'go', 'c', 'cpp', 'typescript', 'typescript.tsx', 'javascript']}
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
 Plug 'mattn/gist-vim'
@@ -58,15 +58,20 @@ Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
 
-Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
+"Plug 'flowtype/vim-flow',{'for': ['javascript', 'jsx']}
+Plug 'wokalski/autocomplete-flow'
 
 Plug 'Shougo/denite.nvim'
 "Plug 'Valloric/YouCompleteMe', {'do': 'python ./install.py'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
-"Plug 'roxma/nvim-completion-manager'
-"Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
+Plug 'TysonAndre/LanguageServer-phan-neovim',  {'do': 'composer update'}
 
 Plug 'Shougo/echodoc.vim'
 
@@ -152,6 +157,10 @@ Plug 'ajh17/spacegray.vim'
 Plug 'junegunn/limelight.vim'
 
 Plug 'roman/golden-ratio'
+
+Plug 'superevilmegaco/AutoRemoteSync.nvim'
+
+Plug '907th/vim-auto-save'
 
 "Plug 'OrangeT/vim-csharp'
 
