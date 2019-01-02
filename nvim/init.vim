@@ -868,6 +868,3 @@ nnoremap <silent> g3 :call LanguageClient#textDocument_hover()<CR>
 " can be used to open the definition in a new pane.
 nnoremap <silent> <C-W>g1 :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
 nnoremap <silent> <C-W>g2 :call LanguageClient#textDocument_typeDefinition({'gotoCmd': 'split'})<CR>
-
-let g:auto_save = 1
-let g:auto_save_events = ["InsertLeave"]
