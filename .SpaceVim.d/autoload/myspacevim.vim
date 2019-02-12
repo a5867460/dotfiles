@@ -24,4 +24,5 @@ let g:ale_php_phpcs_standard = 'Custom'
 let g:ale_php_phpstan_level = '7'
 "let g:ale_use_global_executables = 1
 let g:ale_php_langserver_use_global = 1
+let g:ale_completion_enabled = 1
 let g:ale_php_langserver_executable = $HOME . '/.config/composer/vendor/bin/php-language-server.php'
