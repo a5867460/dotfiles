@@ -5,6 +5,7 @@ function! myspacevim#before() abort
 endfunction
 
 function! myspacevim#after() abort
+    let g:deoplete#sources#go#unimported_packages = 1
     "使用语法高亮定义代码折叠
     set foldmethod=syntax
     "打开文件是默认不折叠代码
