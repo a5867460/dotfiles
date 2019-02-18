@@ -11,11 +11,19 @@ function! myspacevim#after() abort
     "打开文件是默认不折叠代码
     set foldlevelstart=99
     set nofoldenable 
+    let g:deoplete#auto_complete_start_length = 1
+    call deoplete#custom#option({
+                \ 'ignore_case': v:true,
+                \ 'smart_case': v:true,
+                \ 'camel_case': v:true,
+                \ 'refresh_always': v:false,
+                \ })
 endfunction
 
 if isdirectory('./.phan')
     let g:phan_analyzed_directory = getcwd()
     let g:phan_quick = 0
+    let g:phan_additional_cli_flags = ['--language-server-analyze-only-on-save']
 endif
 let mapleader = ","
 autocmd FileType php LanguageClientStart
@@ -30,6 +38,7 @@ let g:sync_exe_filenames = '.sync;,reload.sh;'
 
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
+autocmd FileType php nnoremap <f10> :call LanguageClient_contextMenu()<CR>
 "autocmd FileType php nnoremap <C-t> <Space>jb
 nnoremap <leader>; <esc>$a;<esc>
 let g:php_namespace_sort_after_insert = 1

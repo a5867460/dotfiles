@@ -30,16 +30,16 @@
     enable_neomake = false
     enable_ale = true
     filemanager = "nerdtree"
-    disable_plugins = ['phpfold.vim']
+    disabled_plugins = ['phpfold.vim', 'phpcd.vim']
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
     default_indent = 4
 
-[[custom_plugins]]
-    name = "autozimu/LanguageClient-neovim"
-    rev = "next"
-    build = "bash install.sh"
-    on_ft = "php"
+#[[custom_plugins]]
+#    name = "autozimu/LanguageClient-neovim"
+#    rev = "next"
+#    build = "bash install.sh"
+#    on_ft = "php"
 [[custom_plugins]]
     name = "TysonAndre/LanguageServer-phan-neovim"
     on_ft = "php"
@@ -82,11 +82,11 @@ name = "lang#typescript"
 [[layers]]
 name = "lang#c"
 
-#[[layers]]
-#  name = "lsp"
-#  filetypes = [
-#    "javascript",
-#  ]
+[[layers]]
+  name = "lsp"
+  filetypes = [
+    "javascript",
+  ]
 
 [[layers]]
   name = "fzf"
