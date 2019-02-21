@@ -18,6 +18,10 @@ function! myspacevim#after() abort
                 \ 'camel_case': v:true,
                 \ 'refresh_always': v:false,
                 \ })
+    if filereadable('./.phan/.AutoRemoteSync.json')
+        call AutoRemoteSync#SetConfigFilename('./.phan/.AutoRemoteSync.json')
+        call AutoRemoteSync#Enable()
+    endif
 endfunction
 
 if isdirectory('./.phan')
@@ -38,9 +42,12 @@ let g:sync_exe_filenames = '.sync;,reload.sh;'
 
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
+autocmd FileType php nnoremap <leader>ca :q<CR>
 autocmd FileType php nnoremap <f10> :call LanguageClient_contextMenu()<CR>
-"autocmd FileType php nnoremap <C-t> <Space>jb
 nnoremap <leader>; <esc>$a;<esc>
+autocmd FileType php nnoremap <C-i> <esc>$a;<esc>
+autocmd FileType php inoremap <C-i> <esc>$a;<esc>
+autocmd FileType php nnoremap <space>gl :Gina pull --rebase<CR>
 let g:php_namespace_sort_after_insert = 1
 
 function! IPhpInsertUse()
@@ -63,7 +70,9 @@ let g:gutentags_ctags_extra_args= [
             \ '--PHP-kinds=cfi',
             \ ]
 
+"let g:neoformat_enabled_php = ['phpcbf']
 let g:neoformat_php_phpcbf = {
+            \ 'exe': 'phpcbf',
             \ 'args': ['--standard=Custom'],
             \ }
 
@@ -86,3 +95,5 @@ vmap <Leader>a,, :Tabularize /,\zs<CR>
 nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 
+let g:auto_save = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]

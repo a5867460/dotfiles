@@ -34,6 +34,7 @@
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
     default_indent = 4
+    sidebar_direction = 'left'
 
 #[[custom_plugins]]
 #    name = "autozimu/LanguageClient-neovim"
@@ -54,6 +55,16 @@
 [[custom_plugins]]
     name = "ludovicchabant/vim-gutentags"
     on_ft = "php"
+[[custom_plugins]]
+    name = "907th/vim-auto-save"
+[[custom_plugins]]
+    name = "roman/golden-ratio"
+[[custom_plugins]]
+    name = "itchyny/vim-cursorword"
+[[custom_plugins]]
+    name = "KabbAmine/zeavim.vim"
+[[custom_plugins]]
+    name = "superevilmegaco/AutoRemoteSync.nvim"
 
 # Enable autocomplete layer
 [[layers]]
