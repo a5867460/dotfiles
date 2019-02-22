@@ -30,7 +30,7 @@
     enable_neomake = false
     enable_ale = true
     filemanager = "nerdtree"
-    disabled_plugins = ['phpfold.vim', 'phpcd.vim']
+    disabled_plugins = ['phpfold.vim']
     bootstrap_before = "myspacevim#before"
     bootstrap_after  = "myspacevim#after"
     default_indent = 4

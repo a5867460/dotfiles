@@ -26,7 +26,7 @@ endfunction
 
 if isdirectory('./.phan')
     let g:phan_analyzed_directory = getcwd()
-    let g:phan_quick = 0
+    "let g:phan_quick = 0
     let g:phan_additional_cli_flags = ['--language-server-analyze-only-on-save']
 endif
 let mapleader = ","
@@ -45,8 +45,7 @@ autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
 autocmd FileType php nnoremap <leader>ca :q<CR>
 autocmd FileType php nnoremap <f10> :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>; <esc>$a;<esc>
-autocmd FileType php nnoremap <C-i> <esc>$a;<esc>
-autocmd FileType php inoremap <C-i> <esc>$a;<esc>
+autocmd FileType php nnoremap <C-i> $a;<esc>
 autocmd FileType php nnoremap <space>gl :Gina pull --rebase<CR>
 let g:php_namespace_sort_after_insert = 1
 
@@ -67,7 +66,7 @@ let g:gutentags_ctags_extra_args= [
             \ '-R',
             \ '--fields=+aimlS',
             \ '--languages=php',
-            \ '--PHP-kinds=cfi',
+            \ '--PHP-kinds=cfit',
             \ ]
 
 "let g:neoformat_enabled_php = ['phpcbf']
@@ -76,7 +75,7 @@ let g:neoformat_php_phpcbf = {
             \ 'args': ['--standard=Custom'],
             \ }
 
-"autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 9999)
+autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 9999)
 
 nmap <Leader>a& :Tabularize /&<CR>
 vmap <Leader>a& :Tabularize /&<CR>
