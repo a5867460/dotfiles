@@ -80,6 +80,7 @@ name = 'git'
 
 [[layers]]
 name = "lang#javascript"
+enable_flow_syntax=true
 
 [[layers]]
 name = "lang#php"

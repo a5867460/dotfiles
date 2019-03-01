@@ -42,11 +42,11 @@ let g:sync_exe_filenames = '.sync;,reload.sh;'
 
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
-autocmd FileType php nnoremap <leader>ca :q<CR>
-autocmd FileType php nnoremap <f10> :call LanguageClient_contextMenu()<CR>
+nnoremap <leader>ca :q<CR>
+nnoremap <f10> :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>; <esc>$a;<esc>
-autocmd FileType php nnoremap <C-i> $a;<esc>
-autocmd FileType php nnoremap <space>gl :Gina pull --rebase<CR>
+nnoremap <C-i> $a;<esc>
+nnoremap <space>gl :Gina pull --rebase<CR>
 let g:php_namespace_sort_after_insert = 1
 
 function! IPhpInsertUse()
@@ -69,10 +69,13 @@ let g:gutentags_ctags_extra_args= [
             \ '--PHP-kinds=cfit',
             \ ]
 
-"let g:neoformat_enabled_php = ['phpcbf']
+let g:neoformat_enabled_php = ['phpcbf']
 let g:neoformat_php_phpcbf = {
             \ 'exe': 'phpcbf',
             \ 'args': ['--standard=Custom'],
+            \ 'stdin': 1,
+            \ 'stderr': 1,
+            \ 'valid_exit_codes': [0,1],
             \ }
 
 autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 9999)
