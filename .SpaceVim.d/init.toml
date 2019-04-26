@@ -35,16 +35,17 @@
     bootstrap_after  = "myspacevim#after"
     default_indent = 4
     sidebar_direction = 'left'
+    autocomplete_method = "coc"
 
 #[[custom_plugins]]
 #    name = "autozimu/LanguageClient-neovim"
 #    rev = "next"
 #    build = "bash install.sh"
 #    on_ft = "php"
-[[custom_plugins]]
-    name = "TysonAndre/LanguageServer-phan-neovim"
-    on_ft = "php"
-    build = "composer update"
+#[[custom_plugins]]
+#    name = "TysonAndre/LanguageServer-phan-neovim"
+#    on_ft = "php"
+#    build = "composer update"
 [[custom_plugins]]
     name = "skywind3000/asyncrun.vim"
 [[custom_plugins]]
@@ -69,7 +70,7 @@
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
-auto-completion-return-key-behavior = "complete"
+auto-completion-return-key-behavior = "smart"
 auto-completion-tab-key-behavior = "smart"
 
 [[layers]]
