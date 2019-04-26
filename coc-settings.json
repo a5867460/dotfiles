@@ -1,0 +1,15 @@
+{
+    "languageserver": {
+        "intelephense": {
+            "command": "node",
+            "args": ["/home/yz/.nvm/versions/node/v10.14.2/lib/node_modules/intelephense-server/lib/server.js", "--stdio"],
+            "filetypes": ["php"]
+        },
+        "phan": {
+            "command": "phan",
+            "trace.server": "verbose",
+            "args": ["--language-server-allow-missing-pcntl", "--language-server-on-stdin", "--allow-polyfill-parser", "--language-server-enable-hover", "--language-server-enable-go-to-definition", "--use-fallback-parser", "--require-config-exists"],
+            "filetypes": ["php"]
+        }
+    }
+}
