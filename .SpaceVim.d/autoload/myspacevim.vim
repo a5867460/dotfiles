@@ -3,6 +3,8 @@ function! myspacevim#before() abort
   let g:ale_linters = {
               \  'php': ['langserver', 'phpstan', 'php -l', 'phpcs'],
               \  'javascript': ["flow"],
+              \  'typescript': ["tsserver"],
+              \  'go': ["govet", "golangci-lint", "golint"],
   \}
 endfunction
 
@@ -12,20 +14,12 @@ function! myspacevim#after() abort
     set foldmethod=syntax
     "打开文件是默认不折叠代码
     set foldlevelstart=99
+
+    let g:ale_go_golangci_lint_package = 1
+    let g:go_fmt_fail_silently = 1
     set nofoldenable 
-    "let g:deoplete#auto_complete_start_length = 1
-    "call deoplete#custom#option({
-    "            \ 'ignore_case': v:true,
-    "            \ 'smart_case': v:true,
-    "            \ 'camel_case': v:true,
-    "            \ 'refresh_always': v:true,
-    "            \ })
-    "call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
-	"call deoplete#custom#source('_', 'sorters', [])
-    "if filereadable('./.phan/.AutoRemoteSync.json')
-    "    call AutoRemoteSync#SetConfigFilename('./.phan/.AutoRemoteSync.json')
-    "    call AutoRemoteSync#Enable()
-    "endif
+    "let g:syntastic_go_checkers = []
+    "let g:syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['go'] }
     call coc#config('coc.preferences', {
                 \ "autoTrigger": "always",
                 \ "maxCompleteItemCount": 10,

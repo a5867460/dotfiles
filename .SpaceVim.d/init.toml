@@ -66,6 +66,8 @@
     name = "KabbAmine/zeavim.vim"
 [[custom_plugins]]
     name = "superevilmegaco/AutoRemoteSync.nvim"
+[[custom_plugins]]
+    name = "ianks/vim-tsx"
 
 # Enable autocomplete layer
 [[layers]]
