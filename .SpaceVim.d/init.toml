@@ -37,15 +37,6 @@
     sidebar_direction = 'left'
     autocomplete_method = "coc"
 
-#[[custom_plugins]]
-#    name = "autozimu/LanguageClient-neovim"
-#    rev = "next"
-#    build = "bash install.sh"
-#    on_ft = "php"
-#[[custom_plugins]]
-#    name = "TysonAndre/LanguageServer-phan-neovim"
-#    on_ft = "php"
-#    build = "composer update"
 [[custom_plugins]]
     name = "skywind3000/asyncrun.vim"
 [[custom_plugins]]
@@ -84,9 +75,6 @@ name = 'git'
 [[layers]]
 name = "lang#javascript"
 enable_flow_syntax=true
-
-[[layers]]
-name = "lang#php"
 
 [[layers]]
 name = "lang#go"

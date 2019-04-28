@@ -20,6 +20,10 @@ function! myspacevim#after() abort
     set nofoldenable 
     "let g:syntastic_go_checkers = []
     "let g:syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['go'] }
+    " Find symbol of current document
+    nnoremap <silent> <space>so  :<C-u>CocList outline<cr>
+    " Search workspace symbols
+    nnoremap <silent> <space>sw  :<C-u>CocList -I symbols<cr>
     call coc#config('coc.preferences', {
                 \ "autoTrigger": "always",
                 \ "maxCompleteItemCount": 10,
