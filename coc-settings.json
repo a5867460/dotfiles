@@ -1,15 +1,5 @@
 {
   "languageserver": {
-    "intelephense": {
-      "command": "node",
-      "args": [
-        "/home/yz/.nvm/versions/node/v10.14.2/lib/node_modules/intelephense-server/lib/server.js",
-        "--stdio"
-      ],
-      "filetypes": [
-        "php"
-      ]
-    },
     "phan": {
       "command": "phan",
       "trace.server": "verbose",
