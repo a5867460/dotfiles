@@ -59,6 +59,8 @@
     name = "superevilmegaco/AutoRemoteSync.nvim"
 [[custom_plugins]]
     name = "ianks/vim-tsx"
+[[custom_plugins]]
+    name = "sharat87/roast.vim"
 
 # Enable autocomplete layer
 [[layers]]
@@ -79,17 +81,9 @@ enable_flow_syntax=true
 [[layers]]
 name = "lang#go"
 
-[[layers]]
-name = "lang#typescript"
 
 [[layers]]
 name = "lang#c"
-
-[[layers]]
-  name = "lsp"
-  filetypes = [
-    "javascript",
-  ]
 
 [[layers]]
   name = "fzf"
