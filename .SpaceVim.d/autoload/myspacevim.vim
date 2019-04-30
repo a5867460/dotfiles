@@ -1,7 +1,7 @@
 function! myspacevim#before() abort
   "let g:phan_executable_path = '~/.config/composer/vendor/bin/phan'
   let g:ale_linters = {
-              \  'php': ['langserver', 'phpstan', 'php -l', 'phpcs'],
+              \  'php': ['phpstan', 'php -l', 'phpcs'],
               \  'javascript': ["flow"],
               \  'typescript': ["tsserver"],
               \  'go': ["govet", "golangci-lint", "golint"],
@@ -139,3 +139,14 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+let s:coc_extensions = [
+			\ 'coc-dictionary',
+			\ 'coc-json',
+			\ 'coc-phpls',
+			\ 'coc-snippets',
+			\ 'coc-tsserver',
+			\ 'coc-ultisnips ',
+			\ 'coc-neosnippet',
+			\ 'coc-tag',
+			\]
