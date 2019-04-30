@@ -1,7 +1,7 @@
 function! myspacevim#before() abort
   "let g:phan_executable_path = '~/.config/composer/vendor/bin/phan'
   let g:ale_linters = {
-              \  'php': ['phpstan', 'php -l', 'phpcs'],
+              \  'php': ['langserver', 'phpstan', 'php -l', 'phpcs'],
               \  'javascript': ["flow"],
               \  'typescript': ["tsserver"],
               \  'go': ["govet", "golangci-lint", "golint"],
