@@ -81,6 +81,8 @@ enable_flow_syntax=true
 [[layers]]
 name = "lang#go"
 
+[[layers]]
+name = "lang#typescript"
 
 [[layers]]
 name = "lang#c"

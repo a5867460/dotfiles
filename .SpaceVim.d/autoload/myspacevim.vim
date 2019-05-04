@@ -51,6 +51,12 @@ let g:sync_exe_filenames = '.sync;,reload.sh;'
 
 "autocmd FileType javascript let g:ale_completion_enabled = 1
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <leader>ca :q<CR>
@@ -59,7 +65,6 @@ nnoremap <leader>; <esc>$a;<esc>
 nnoremap <C-i> $a;<esc>
 nnoremap <space>gl :Gina pull --rebase<CR>
 let g:php_namespace_sort_after_insert = 1
-nmap <silent> gr <Plug>(coc-references)
 
 function! IPhpInsertUse()
     call PhpInsertUse()
@@ -91,6 +96,10 @@ let g:neoformat_php_phpcbf = {
             \ }
 
 "autocmd FileType php :call deoplete#custom#source('phpcd', 'rank', 9999)
+
+" Remap for format selected region
+xmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
 
 nmap <Leader>a& :Tabularize /&<CR>
 vmap <Leader>a& :Tabularize /&<CR>
@@ -143,10 +152,9 @@ let g:coc_snippet_next = '<tab>'
 let s:coc_extensions = [
 			\ 'coc-dictionary',
 			\ 'coc-json',
+            \ 'coc-css',
+			\ 'coc-tsserver',
 			\ 'coc-phpls',
 			\ 'coc-snippets',
-			\ 'coc-tsserver',
-			\ 'coc-ultisnips ',
-			\ 'coc-neosnippet',
 			\ 'coc-tag',
 			\]
