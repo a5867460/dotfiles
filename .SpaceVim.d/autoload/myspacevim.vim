@@ -1,5 +1,4 @@
 function! myspacevim#before() abort
-  "let g:phan_executable_path = '~/.config/composer/vendor/bin/phan'
   let g:ale_linters = {
               \  'php': ['langserver', 'phpstan', 'php -l', 'phpcs'],
               \  'javascript': ["flow"],
@@ -33,11 +32,6 @@ function! myspacevim#after() abort
 
 endfunction
 
-if isdirectory('./.phan')
-    let g:phan_analyzed_directory = getcwd()
-    let g:phan_quick = 0
-    "let g:phan_additional_cli_flags = ['--language-server-analyze-only-on-save']
-endif
 let mapleader = ","
 "autocmd FileType php LanguageClientStart
 set gcr=a:block-blinkon0   
@@ -59,6 +53,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 autocmd FileType php inoremap <leader>4 $
 autocmd FileType php nnoremap gd :ALEGoToDefinition<CR>
+autocmd FileType typescript nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <leader>ca :q<CR>
 nnoremap <f10> :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>; <esc>$a;<esc>
