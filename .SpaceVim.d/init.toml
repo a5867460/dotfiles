@@ -88,6 +88,9 @@ name = "lang#typescript"
 name = "lang#c"
 
 [[layers]]
+name = "lang#yaml"
+
+[[layers]]
   name = "fzf"
 
 [[layers]]

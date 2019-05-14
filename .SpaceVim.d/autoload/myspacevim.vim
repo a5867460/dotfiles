@@ -114,7 +114,9 @@ nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 
 let g:auto_save = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged"]
+let g:auto_save_events = ["InsertLeave", "CursorHold"]
+let g:auto_save_write_all_buffers = 1
+au FileType go let g:auto_save_events = ["InsertLeave", "CursorHold"]
 
 autocmd BufWritePre *.purs :sign unplace *
 autocmd BufWritePre *.php :sign unplace *
@@ -148,6 +150,7 @@ let s:coc_extensions = [
 			\ 'coc-dictionary',
 			\ 'coc-json',
             \ 'coc-css',
+            \ 'coc-yaml',
 			\ 'coc-tsserver',
 			\ 'coc-phpls',
 			\ 'coc-snippets',
