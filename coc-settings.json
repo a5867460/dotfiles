@@ -1,5 +1,6 @@
 {
   "javascript.validate.enable": false,
+  "snippets.textmateSnippetsRoots": ["/home/yz/.config/Code/User/snippets/"],
   "languageserver": {
     "phan": {
       "command": "phan",

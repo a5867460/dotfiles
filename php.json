@@ -1,0 +1,71 @@
+{
+	// Place your snippets for php here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"If Not": {
+		"prefix": "ifn",
+		"body": [
+			"if (!$1) {",
+			"\t$2",
+			"}",
+		]
+	},
+	"try catch": {
+		"prefix":"try",
+		"body": [
+			"try {",
+			"\t$1",
+			"} catch (ValidatorException \\$e) {",
+			"\t$3",
+			"}"
+		]
+	},
+	"catch-record-not-found": {
+		"prefix": "catchrnf",
+		"body": [
+			" catch (RecordNotFoundException \\$e) {",
+			"\tthis",
+			"}",
+		]
+	},
+	"x-valid": {
+		"prefix": "valid",
+		"body": [
+			"\\$formData = X$1::validator(\\$this->smartInput())",
+			"\t->validate()",
+			"\t->safeVar;",
+		]
+	},
+	"this": {
+		"prefix": "this",
+		"body": [
+			"\\$this->",
+		]
+	},
+	"param-validate": {
+		"prefix": "paramv",
+		"body": [
+			"->$1('$2')",
+			"->onEmptyReport('$3参数不能为空')",
+			"->onErrorReport('$3参数错误')",
+		]
+	},
+	"param-empty-validate": {
+		"prefix": "paramsetv",
+		"body": [
+			"->$1('$2')",
+			"->onEmptySet(${null})",
+			"->onErrorReport('$4参数错误')",
+		]
+	},
+}
