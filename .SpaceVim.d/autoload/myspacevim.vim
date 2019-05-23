@@ -16,7 +16,7 @@ function! myspacevim#after() abort
 
     let g:ale_go_golangci_lint_package = 1
     let g:go_fmt_fail_silently = 1
-    set nofoldenable 
+    set nofoldenable
     "let g:syntastic_go_checkers = []
     "let g:syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['go'] }
     " Find symbol of current document
@@ -32,9 +32,11 @@ function! myspacevim#after() abort
 
 endfunction
 
+set autoread                                                                                                                                                                                    
+au CursorHold * checktime    
 let mapleader = ","
 "autocmd FileType php LanguageClientStart
-set gcr=a:block-blinkon0   
+set gcr=a:block-blinkon0
 let g:spacevim_terminal_cursor_shape = 0
 let g:ale_php_phpcs_standard = 'Custom'
 let g:ale_php_phpstan_level = '7'
